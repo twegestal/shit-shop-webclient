@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -9,7 +9,6 @@ import {
   VStack,
   HStack,
 } from "@chakra-ui/react";
-import { LoginService } from "../services/LoginService";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -17,7 +16,8 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (event: any) => {
-    event.preventDefault();
+    navigate("/main");
+    /*event.preventDefault();
 
     try {
       const data = await LoginService({
@@ -25,10 +25,11 @@ const LoginForm = () => {
         data: { username, password },
       });
 
-      localStorage.setItem('token', data.token);
+      localStorage.setItem("token", data.token);
+      navigate("/main"); // navigate to main page
     } catch (error) {
       alert("login failed");
-    }
+    }*/
   };
 
   const handleRegister = () => {
