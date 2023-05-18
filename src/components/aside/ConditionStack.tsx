@@ -1,4 +1,3 @@
-import React from "react";
 import { GetData } from "../../services/GetData";
 import { useEffect, useState } from "react";
 import { VStack, Text } from "@chakra-ui/react";

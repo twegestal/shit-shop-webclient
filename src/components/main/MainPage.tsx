@@ -1,6 +1,6 @@
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "../nav/NavBar";
-import CardGrid from "./CardGrid";
+import CardGrid from "./ProductCardGrid";
 import SearchPanel from "../aside/SearchPanel";
 
 const MainPage = () => {

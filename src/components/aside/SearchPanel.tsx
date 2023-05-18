@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { GetData } from "../../services/GetData";
-import { VStack, Text, Spacer, RangeSlider, Button } from "@chakra-ui/react";
+import { VStack, Spacer, Button } from "@chakra-ui/react";
 import PriceSlider from "./PriceSlider";
 import ProductTypeStack from "./ProductTypeMenu";
 import ConditionStack from "./ConditionStack";

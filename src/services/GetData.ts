@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://10.2.17.156:5008/';
+const API_BASE_URL = 'http://localhost:5008/';
 
 interface GetDataParams {
   endpoint: string;
