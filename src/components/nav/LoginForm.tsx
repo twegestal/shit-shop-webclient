@@ -9,7 +9,7 @@ import {
   VStack,
   HStack,
 } from "@chakra-ui/react";
-import { LoginService } from "../services/LoginService";
+import { LoginService } from "../../services/LoginService";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");

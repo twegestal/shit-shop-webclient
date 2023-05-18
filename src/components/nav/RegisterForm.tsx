@@ -9,7 +9,7 @@ import {
   VStack,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { LoginService } from "../services/LoginService";
+import { LoginService } from "../../services/LoginService";
 
 const RegisterForm = () => {
   const [firstName, setFirstName] = useState("");

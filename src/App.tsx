@@ -6,9 +6,9 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import LoginForm from "./components/LoginForm";
-import RegisterForm from "./components/RegisterForm";
-import MainPage from "./components/MainPage";
+import LoginForm from "./components/nav/LoginForm";
+import RegisterForm from "./components/nav/RegisterForm";
+import MainPage from "./components/main/MainPage";
 
 const App = () => {
   return (

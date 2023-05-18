@@ -1,6 +1,7 @@
 import { Grid, GridItem, Show } from "@chakra-ui/react";
-import NavBar from "./NavBar";
+import NavBar from "../nav/NavBar";
 import CardGrid from "./CardGrid";
+import SearchPanel from "../aside/SearchPanel";
 
 const MainPage = () => {
   return (
@@ -14,7 +15,9 @@ const MainPage = () => {
         <NavBar />
       </GridItem>
       <Show above="lg">
-        <GridItem area={"aside"}>Aside</GridItem>
+        <GridItem area={"aside"}>
+          <SearchPanel />
+        </GridItem>
       </Show>
       <GridItem area={"main"}>
         <CardGrid />

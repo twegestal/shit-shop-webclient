@@ -12,16 +12,6 @@ import {
   ButtonGroup,
 } from "@chakra-ui/react";
 
-interface Props {
-  productType: string;
-  name: string;
-  price: number;
-  yearOfProduction: number;
-  color: string;
-  condition: string;
-    
-}
-
 const ProductCard = () => {
   return (
     <Card maxW="sm">
@@ -46,10 +36,7 @@ const ProductCard = () => {
       <Divider />
       <CardFooter>
         <ButtonGroup spacing="2">
-          <Button variant="solid" colorScheme="blue">
-            Buy now
-          </Button>
-          <Button variant="ghost" colorScheme="blue">
+          <Button variant="solid" colorScheme="telegram">
             Add to cart
           </Button>
         </ButtonGroup>
