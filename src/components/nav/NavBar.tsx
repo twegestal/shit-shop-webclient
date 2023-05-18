@@ -1,3 +1,4 @@
+// NavBar.js
 import {
   HStack,
   Image,
@@ -5,21 +6,20 @@ import {
   Link,
   Button,
   Spacer,
+  useDisclosure,
 } from "@chakra-ui/react";
 import logo from "../../assets/logo.jpeg";
 import ColorModeSwitch from "./ColorModeSwitch";
 import { useNavigate } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
-import {
-  MdOutlineNotificationsNone,
-  MdOutlineNotificationsActive,
-} from "react-icons/md";
-
+import { MdOutlineNotificationsNone } from "react-icons/md";
 import { GrAddCircle } from "react-icons/gr";
 import { TiShoppingCart } from "react-icons/ti";
+import SellProductModal from "../modal/SellProductModal";
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleLogin = () => {
     const token = localStorage.getItem("token");
@@ -30,18 +30,19 @@ const NavBar = () => {
   return (
     <HStack justifyContent="space-between" padding="10px">
       <Image src={logo} boxSize="60px" />
-      <HStack>
-        <Button colorScheme="telegram" leftIcon={<GrAddCircle />}>
+      <HStack spacing={4}>
+        <Button
+          colorScheme="telegram"
+          leftIcon={<GrAddCircle />}
+          onClick={onOpen}
+        >
           <Spacer />
           Sell product
         </Button>
-        <Spacer />
-        <Spacer />
         <VStack _hover={{ cursor: "pointer" }}>
           <FaRegUserCircle />
           <Link onClick={handleLogin}>Log in</Link>
         </VStack>
-        <Spacer />
         <VStack _hover={{ cursor: "pointer" }}>
           <MdOutlineNotificationsNone
             onClick={() => {
@@ -50,15 +51,14 @@ const NavBar = () => {
           />
           <Link>Inbox</Link>
         </VStack>
-        <Spacer />
         <VStack _hover={{ cursor: "pointer" }}>
           <TiShoppingCart />
           <Link>Cart</Link>
         </VStack>
-        <Spacer />
         <ColorModeSwitch />
-        <Spacer />
       </HStack>
+
+      <SellProductModal isOpen={isOpen} onClose={onClose} />
     </HStack>
   );
 };

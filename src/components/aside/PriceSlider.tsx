@@ -14,6 +14,7 @@ const PriceSlider = () => {
 
   return (
     <Box>
+      <Text as="b">Price</Text>
       <HStack justifyContent="space-between">
         <Text>Min: ${values[0]}</Text>
         <Text>Max: ${values[1]}</Text>

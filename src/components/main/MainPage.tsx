@@ -11,7 +11,7 @@ const MainPage = () => {
         lg: `"nav nav" "aside main"`,
       }}
     >
-      <GridItem area={"nav"}>
+      <GridItem area={"nav"} marginBottom="40px">
         <NavBar />
       </GridItem>
       <Show above="lg">

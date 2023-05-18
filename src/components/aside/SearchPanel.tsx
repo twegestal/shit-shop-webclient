@@ -6,15 +6,11 @@ import { BsSearch } from "react-icons/bs";
 
 const SearchPanel = () => {
   return (
-    <VStack>
+    <VStack spacing="50px">
       <ProductTypeStack />
-      <Spacer />
       <PriceSlider />
-      <Spacer />
       <ConditionStack />
-      <Spacer />
       <Button colorScheme="telegram" leftIcon={<BsSearch />}>
-        <Spacer />
         Search
       </Button>
     </VStack>

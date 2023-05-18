@@ -1,11 +1,18 @@
 import { useState, useEffect } from "react";
 import { GetData } from "../../services/GetData";
-import { Menu, Button, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
+import {
+  Menu,
+  Button,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Text,
+} from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
 const ProductTypeMenu = () => {
   const [data, setData] = useState([]);
-  const [selectedItem, setSelectedItem] = useState();
+  const [selectedItem, setSelectedItem] = useState("Product type");
 
   useEffect(() => {
     GetData({
@@ -14,9 +21,8 @@ const ProductTypeMenu = () => {
     })
       .then((data) => {
         setData(data);
-        setSelectedItem(data[0]);
       })
-      .catch((error) => alert("fetch failed"));
+      .catch((error) => console.log(error));
   }, []);
 
   return (

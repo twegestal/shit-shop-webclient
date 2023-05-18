@@ -10,7 +10,7 @@ import {
   Button,
   ButtonGroup,
 } from "@chakra-ui/react";
-import { Product } from "../../hooks/useProducts";
+import { Product } from "./ProductCardGrid";
 
 interface Props {
   product: Product;
@@ -23,7 +23,10 @@ const ProductCard = ({ product }: Props) => {
         <Image src={product.image} alt="Cant find image" borderRadius="lg" />
         <Stack mt="6" spacing="3">
           <Heading size="md">{product.name}</Heading>
-          <Text>{product.productType}</Text>
+          <Text>Type: {product.productType}</Text>
+          <Text>Year: {product.yearOfProduction}</Text>
+          <Text>Condition: {product.condition}</Text>
+          <Text>Color: {product.color}</Text>
           <Text color="blue.600" fontSize="2xl">
             {"$" + product.price}
           </Text>
@@ -42,3 +45,14 @@ const ProductCard = ({ product }: Props) => {
 };
 
 export default ProductCard;
+
+/*
+id: number;
+  image: string;
+  name: string;
+  productType: string;
+  price: number;
+  yearOfProduction: number;
+  condition: string;
+  color: string;
+*/

@@ -2,11 +2,21 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { SimpleGrid } from "@chakra-ui/react";
 import ProductCardSkeleton from "./ProductCardSkeleton";
-import useProducts, { Product } from "../../hooks/useProducts";
 import { GetData } from "../../services/GetData";
 
+export interface Product {
+  id: number;
+  image: string;
+  name: string;
+  productType: string;
+  price: number;
+  yearOfProduction: number;
+  condition: string;
+  color: string;
+}
+
 const ProductCardGrid = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   useEffect(() => {
@@ -14,18 +24,20 @@ const ProductCardGrid = () => {
       endpoint: "product/",
       data: null,
     })
-      .then((data) => {
+      .then((data: Product[]) => {
         console.log(data);
         setProducts(data);
       })
-      .catch((error) => alert("fetch failed"));
+      .catch((error) => console.log(error));
   }, []);
 
   return (
     <SimpleGrid columns={3} padding="10px" spacing={10}>
-      {products.map((product) => (
-        <ProductCard key={product} product={product} />
-      ))}
+      {products.length === 0
+        ? skeletons.map((skeleton) => <ProductCardSkeleton key={skeleton} />)
+        : products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
     </SimpleGrid>
   );
 };
