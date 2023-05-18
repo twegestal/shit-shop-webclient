@@ -9,6 +9,7 @@ import {
   VStack,
   HStack,
 } from "@chakra-ui/react";
+import { LoginService } from "../services/LoginService";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -17,19 +18,19 @@ const LoginForm = () => {
 
   const handleSubmit = async (event: any) => {
     navigate("/main");
-    /*event.preventDefault();
+    event.preventDefault();
 
     try {
       const data = await LoginService({
-        endpoint: "login",
+        endpoint: "token",
         data: { username, password },
       });
 
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("token", data.auth_token);
       navigate("/main"); // navigate to main page
     } catch (error) {
       alert("login failed");
-    }*/
+    }
   };
 
   const handleRegister = () => {
