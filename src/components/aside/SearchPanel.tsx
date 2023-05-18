@@ -4,6 +4,7 @@ import { VStack, Text, Spacer, RangeSlider, Button } from "@chakra-ui/react";
 import PriceSlider from "./PriceSlider";
 import ProductTypeStack from "./ProductTypeMenu";
 import ConditionStack from "./ConditionStack";
+import { BsSearch } from "react-icons/bs";
 
 const SearchPanel = () => {
   return (
@@ -14,7 +15,10 @@ const SearchPanel = () => {
       <Spacer />
       <ConditionStack />
       <Spacer />
-      <Button colorScheme="telegram">Search</Button>
+      <Button colorScheme="telegram" leftIcon={<BsSearch />}>
+        <Spacer />
+        Search
+      </Button>
     </VStack>
   );
 };

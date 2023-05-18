@@ -7,7 +7,7 @@ import {
   Button,
   Spacer,
 } from "@chakra-ui/react";
-import logo from "../assets/logo.jpeg";
+import logo from "../../assets/logo.jpeg";
 import ColorModeSwitch from "./ColorModeSwitch";
 import { useNavigate } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
@@ -15,7 +15,7 @@ import {
   MdOutlineNotificationsNone,
   MdOutlineNotificationsActive,
 } from "react-icons/md";
-import { BsSearch } from "react-icons/bs";
+
 import { GrAddCircle } from "react-icons/gr";
 import { TiShoppingCart } from "react-icons/ti";
 
@@ -37,10 +37,6 @@ const NavBar = () => {
           Sell product
         </Button>
         <Spacer />
-        <VStack _hover={{ cursor: "pointer" }}>
-          <BsSearch />
-          <Link>Search</Link>
-        </VStack>
         <Spacer />
         <VStack _hover={{ cursor: "pointer" }}>
           <FaRegUserCircle />
