@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   FormControl,
   FormLabel,
@@ -7,40 +7,59 @@ import {
   Select,
   Box,
 } from "@chakra-ui/react";
+import { GetData } from "../../services/GetData";
 
-interface SellProductFormProps {
+interface Props {
   name: string;
   setName: (name: string) => void;
-  productType: string;
-  setProductType: (productType: string) => void;
   price: string;
   setPrice: (price: string) => void;
   yearOfProduction: string;
   setYearOfProduction: (yearOfProduction: string) => void;
-  condition: string;
-  setCondition: (condition: string) => void;
-  color: string;
-  setColor: (color: string) => void;
   imageUrl: string;
   setImageUrl: (imageUrl: string) => void;
 }
 
-const SellProductForm: React.FC<SellProductFormProps> = ({
+const SellProductForm = ({
   name,
   setName,
-  productType,
-  setProductType,
   price,
   setPrice,
   yearOfProduction,
   setYearOfProduction,
-  condition,
-  setCondition,
-  color,
-  setColor,
   imageUrl,
   setImageUrl,
-}) => {
+}: Props) => {
+  const [productType, setProductType] = useState("");
+  const [condition, setCondition] = useState("");
+  const [color, setColor] = useState("");
+  const [productTypes, setProductTypes] = useState([]);
+  const [conditions, setConditions] = useState([]);
+  const [colors, setColors] = useState([]);
+
+  useEffect(() => {
+    GetData({
+      endpoint: "product/condition",
+      data: null,
+    })
+      .then((cond) => setConditions(cond))
+      .catch((error) => console.log(error));
+
+    GetData({
+      endpoint: "product/types",
+      data: null,
+    })
+      .then((type) => setProductTypes(type))
+      .catch((error) => console.log(error));
+
+    GetData({
+      endpoint: "product/color",
+      data: null,
+    })
+      .then((col) => setColors(col))
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <Box as="form">
       <FormControl>
@@ -50,10 +69,16 @@ const SellProductForm: React.FC<SellProductFormProps> = ({
 
       <FormControl>
         <FormLabel>Product Type</FormLabel>
-        <Input
+        <Select
           value={productType}
           onChange={(e) => setProductType(e.target.value)}
-        />
+        >
+          {productTypes.map((type, index) => (
+            <option key={index} value={type}>
+              {type}
+            </option>
+          ))}
+        </Select>
       </FormControl>
 
       <FormControl>
@@ -71,15 +96,27 @@ const SellProductForm: React.FC<SellProductFormProps> = ({
 
       <FormControl>
         <FormLabel>Condition</FormLabel>
-        <Input
+        <Select
           value={condition}
           onChange={(e) => setCondition(e.target.value)}
-        />
+        >
+          {conditions.map((cond, index) => (
+            <option key={index} value={cond}>
+              {cond}
+            </option>
+          ))}
+        </Select>
       </FormControl>
 
       <FormControl>
         <FormLabel>Color</FormLabel>
-        <Input value={color} onChange={(e) => setColor(e.target.value)} />
+        <Select value={color} onChange={(e) => setColor(e.target.value)}>
+          {colors.map((cond, index) => (
+            <option key={index} value={cond}>
+              {cond}
+            </option>
+          ))}
+        </Select>
       </FormControl>
 
       <FormControl>

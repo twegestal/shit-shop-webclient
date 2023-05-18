@@ -1,10 +1,18 @@
 import { GetData } from "../../services/GetData";
 import { useEffect, useState } from "react";
-import { VStack, Text, Button } from "@chakra-ui/react";
+import {
+  VStack,
+  Text,
+  Button,
+  Switch,
+  FormControl,
+  FormLabel,
+} from "@chakra-ui/react";
 
 const ConditionStack = () => {
   const [data, setData] = useState([]);
   const [lastSelected, setLastSelected] = useState<number | null>(null);
+  const [reverse, setReverse] = useState(false);
 
   useEffect(() => {
     GetData({
@@ -19,14 +27,28 @@ const ConditionStack = () => {
     setLastSelected(index);
   };
 
+  const handleReverse = () => {
+    setLastSelected(null);
+    setReverse(!reverse);
+  };
+
   return (
     <VStack>
       <Text as="b">Condition</Text>
+      <FormControl display="flex" alignItems="center">
+        <FormLabel htmlFor="reverse-switch" mb="0">
+          Reverse
+        </FormLabel>
+        <Switch id="reverse-switch" onChange={handleReverse} />
+      </FormControl>
       {data.map((item, index) => (
         <Button
           key={index}
           colorScheme={
-            lastSelected !== null && index <= lastSelected ? "blue" : "gray"
+            lastSelected !== null &&
+            (reverse ? index >= lastSelected : index <= lastSelected)
+              ? "blue"
+              : "gray"
           }
           onClick={() => handleClick(index)}
         >

@@ -1,4 +1,3 @@
-// NavBar.js
 import {
   HStack,
   Image,
@@ -10,21 +9,29 @@ import {
 } from "@chakra-ui/react";
 import logo from "../../assets/logo.jpeg";
 import ColorModeSwitch from "./ColorModeSwitch";
-import { useNavigate } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdOutlineNotificationsNone } from "react-icons/md";
 import { GrAddCircle } from "react-icons/gr";
 import { TiShoppingCart } from "react-icons/ti";
 import SellProductModal from "../modal/SellProductModal";
+import LoginModal from "../modal/LoginModal";
 
 const NavBar = () => {
-  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isLoginOpen,
+    onOpen: onLoginOpen,
+    onClose: onLoginClose,
+  } = useDisclosure();
 
-  const handleLogin = () => {
-    const token = localStorage.getItem("token");
-    if (token) return;
-    navigate("/login");
+  const token = localStorage.getItem("token");
+
+  const handleAction = () => {
+    if (!token) {
+      onLoginOpen();
+    } else {
+      onOpen();
+    }
   };
 
   return (
@@ -34,31 +41,29 @@ const NavBar = () => {
         <Button
           colorScheme="telegram"
           leftIcon={<GrAddCircle />}
-          onClick={onOpen}
+          onClick={handleAction}
         >
           <Spacer />
           Sell product
         </Button>
-        <VStack _hover={{ cursor: "pointer" }}>
-          <FaRegUserCircle />
-          <Link onClick={handleLogin}>Log in</Link>
-        </VStack>
-        <VStack _hover={{ cursor: "pointer" }}>
-          <MdOutlineNotificationsNone
-            onClick={() => {
-              navigate("/mail");
-            }}
-          />
+        {!token && (
+          <VStack _hover={{ cursor: "pointer" }} onClick={onLoginOpen}>
+            <FaRegUserCircle />
+            <Link>Login</Link>
+          </VStack>
+        )}
+        <VStack _hover={{ cursor: "pointer" }} onClick={handleAction}>
+          <MdOutlineNotificationsNone />
           <Link>Inbox</Link>
         </VStack>
-        <VStack _hover={{ cursor: "pointer" }}>
+        <VStack _hover={{ cursor: "pointer" }} onClick={handleAction}>
           <TiShoppingCart />
           <Link>Cart</Link>
         </VStack>
         <ColorModeSwitch />
       </HStack>
-
       <SellProductModal isOpen={isOpen} onClose={onClose} />
+      <LoginModal isOpen={isLoginOpen} onClose={onLoginClose} />
     </HStack>
   );
 };

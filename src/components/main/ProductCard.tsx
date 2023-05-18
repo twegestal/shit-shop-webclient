@@ -24,7 +24,7 @@ const ProductCard = ({ product }: Props) => {
         <Stack mt="6" spacing="3">
           <Heading size="md">{product.name}</Heading>
           <Text>Type: {product.productType}</Text>
-          <Text>Year: {product.yearOfProduction}</Text>
+          <Text>Year: {product.yop}</Text>
           <Text>Condition: {product.condition}</Text>
           <Text>Color: {product.color}</Text>
           <Text color="blue.600" fontSize="2xl">
@@ -45,14 +45,3 @@ const ProductCard = ({ product }: Props) => {
 };
 
 export default ProductCard;
-
-/*
-id: number;
-  image: string;
-  name: string;
-  productType: string;
-  price: number;
-  yearOfProduction: number;
-  condition: string;
-  color: string;
-*/

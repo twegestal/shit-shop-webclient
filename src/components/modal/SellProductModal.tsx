@@ -11,31 +11,21 @@ import {
 } from "@chakra-ui/react";
 import SellProductForm from "../forms/SellProductForm";
 
-interface ModalComponentProps {
+interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const SellProductModal: React.FC<ModalComponentProps> = ({ isOpen, onClose }) => {
+const SellProductModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const [name, setName] = useState("");
-  const [productType, setProductType] = useState("");
   const [price, setPrice] = useState("");
   const [yearOfProduction, setYearOfProduction] = useState("");
-  const [condition, setCondition] = useState("");
   const [color, setColor] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
   const handleSellProduct = () => {
     // Handle the submission of the product here...
-    console.log(
-      name,
-      productType,
-      price,
-      yearOfProduction,
-      condition,
-      color,
-      imageUrl
-    );
+    console.log(name, price, yearOfProduction, color, imageUrl);
 
     // Close the modal
     onClose();
@@ -56,16 +46,10 @@ const SellProductModal: React.FC<ModalComponentProps> = ({ isOpen, onClose }) =>
           <SellProductForm
             name={name}
             setName={setName}
-            productType={productType}
-            setProductType={setProductType}
             price={price}
             setPrice={setPrice}
             yearOfProduction={yearOfProduction}
             setYearOfProduction={setYearOfProduction}
-            condition={condition}
-            setCondition={setCondition}
-            color={color}
-            setColor={setColor}
             imageUrl={imageUrl}
             setImageUrl={setImageUrl}
           />

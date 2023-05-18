@@ -1,25 +1,28 @@
-import React from "react";
-
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import LoginForm from "./components/nav/LoginForm";
-import RegisterForm from "./components/nav/RegisterForm";
-import MainPage from "./components/main/MainPage";
+import { Grid, GridItem, Show } from "@chakra-ui/react";
+import NavBar from "./components/nav/NavBar";
+import SearchPanel from "./components/aside/SearchPanel";
+import ProductCardGrid from "./components/main/ProductCardGrid";
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<RegisterForm />} />
-        <Route path="/main" element={<MainPage />} />
-        <Route path="/" element={<Navigate to="/main" />} />
-      </Routes>
-    </Router>
+    <Grid
+      templateAreas={{
+        base: `"nav" "main"`,
+        lg: `"nav nav" "aside main"`,
+      }}
+    >
+      <GridItem area={"nav"} marginBottom="40px">
+        <NavBar />
+      </GridItem>
+      <Show above="lg">
+        <GridItem area={"aside"}>
+          <SearchPanel />
+        </GridItem>
+      </Show>
+      <GridItem area={"main"}>
+        <ProductCardGrid />
+      </GridItem>
+    </Grid>
   );
 };
 

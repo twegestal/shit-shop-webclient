@@ -3,6 +3,7 @@ import PriceSlider from "./PriceSlider";
 import ProductTypeStack from "./ProductTypeMenu";
 import ConditionStack from "./ConditionStack";
 import { BsSearch } from "react-icons/bs";
+import { ConditionSlider } from "./ConditionSlider";
 
 const SearchPanel = () => {
   return (
