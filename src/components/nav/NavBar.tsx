@@ -19,7 +19,7 @@ import RegisterModal from "../modal/RegisterModal";
 import CartModal from "../modal/CartModal";
 import { Product } from "../main/ProductCardGrid";
 import CartIcon from "../icons/CartIcon";
-import InboxIcon from "../../assets/InboxIcon";
+import InboxIcon from "../icons/InboxIcon";
 
 interface Props {
   cartItems: Product[];
