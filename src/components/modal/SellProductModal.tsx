@@ -20,12 +20,10 @@ const SellProductModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [yearOfProduction, setYearOfProduction] = useState("");
-  const [color, setColor] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
   const handleSellProduct = () => {
     // Handle the submission of the product here...
-    console.log(name, price, yearOfProduction, color, imageUrl);
 
     // Close the modal
     onClose();
@@ -56,7 +54,7 @@ const SellProductModal: React.FC<Props> = ({ isOpen, onClose }) => {
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={handleSellProduct}>
+          <Button colorScheme="telegram" mr={3} onClick={handleSellProduct}>
             Sell Product
           </Button>
           <Button variant="ghost" onClick={onClose}>

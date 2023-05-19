@@ -1,0 +1,8 @@
+Login och Register //Koppla till backend, annars klart.
+Search // koppla till backend, annars klart
+Get specific
+Messages
+Accept/Decline orders
+Order history
+Sell product
+

@@ -16,8 +16,8 @@ const PriceSlider = () => {
     <Box>
       <Text as="b">Price</Text>
       <HStack justifyContent="space-between">
-        <Text>Min: ${values[0]}</Text>
-        <Text>Max: ${values[1]}</Text>
+        <Text width="95px">Min: ${values[0]}</Text>
+        <Text width="95px">Max: ${values[1]}</Text>
       </HStack>
       <RangeSlider
         aria-label={["min", "max"]}

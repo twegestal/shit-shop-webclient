@@ -1,5 +1,14 @@
 import * as React from "react";
-import { Box, Slider, SliderTrack, SliderFilledTrack, SliderThumb, VStack, Text, HStack } from "@chakra-ui/react";
+import {
+  Box,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  VStack,
+  Text,
+  HStack,
+} from "@chakra-ui/react";
 
 export const ConditionSlider = () => {
   const conditions = ["defect", "bad", "good", "very good", "new"];
@@ -7,10 +16,10 @@ export const ConditionSlider = () => {
 
   return (
     <VStack width="100%" alignItems="center">
-      <Slider 
+      <Slider
         defaultValue={0}
-        min={0} 
-        max={4} 
+        min={0}
+        max={4}
         step={1}
         onChangeEnd={(value) => setCondition(conditions[value])}
         width="90%"
@@ -28,5 +37,5 @@ export const ConditionSlider = () => {
         ))}
       </HStack>
     </VStack>
-  )
-}
+  );
+};

@@ -58,7 +58,7 @@ const LoginForm = () => {
           />
         </FormControl>
         <HStack spacing={4}>
-          <Button colorScheme="blue" onClick={handleSubmit}>
+          <Button colorScheme="telegram" onClick={handleSubmit}>
             Login
           </Button>
           <Button colorScheme="teal" onClick={handleRegister}>

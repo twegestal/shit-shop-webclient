@@ -1,16 +1,15 @@
-import { VStack, Spacer, Button } from "@chakra-ui/react";
+import { VStack, Button } from "@chakra-ui/react";
 import PriceSlider from "./PriceSlider";
 import ProductTypeStack from "./ProductTypeMenu";
-import ConditionStack from "./ConditionStack";
 import { BsSearch } from "react-icons/bs";
-import { ConditionSlider } from "./ConditionSlider";
+import ConditionMenu from "./ConditionMenu";
 
 const SearchPanel = () => {
   return (
     <VStack spacing="50px">
       <ProductTypeStack />
       <PriceSlider />
-      <ConditionStack />
+      <ConditionMenu />
       <Button colorScheme="telegram" leftIcon={<BsSearch />}>
         Search
       </Button>

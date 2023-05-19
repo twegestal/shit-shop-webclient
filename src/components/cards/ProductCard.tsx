@@ -10,17 +10,28 @@ import {
   Button,
   ButtonGroup,
 } from "@chakra-ui/react";
-import { Product } from "./ProductCardGrid";
+import { Product } from "../main/ProductCardGrid";
 
 interface Props {
   product: Product;
+  addToCart: (product: Product) => void;
 }
 
-const ProductCard = ({ product }: Props) => {
+const ProductCard = ({ product, addToCart }: Props) => {
+  const handleAddToCart = () => {
+    addToCart(product);
+  };
+
   return (
-    <Card width="300px" borderRadius={10} overflow={"hidden"}>
+    <Card width="300px" borderRadius={10} overflow="hidden">
       <CardBody>
-        <Image src={product.image} alt="Cant find image" borderRadius="lg" />
+        <Image
+          src={product.image}
+          alt="Can't find image"
+          borderRadius="lg"
+          height="200px"
+          objectFit="cover"
+        />
         <Stack mt="6" spacing="3">
           <Heading size="md">{product.name}</Heading>
           <Text>Type: {product.productType}</Text>
@@ -35,7 +46,11 @@ const ProductCard = ({ product }: Props) => {
       <Divider />
       <CardFooter>
         <ButtonGroup spacing="2">
-          <Button variant="solid" colorScheme="telegram">
+          <Button
+            variant="solid"
+            colorScheme="telegram"
+            onClick={handleAddToCart}
+          >
             Add to cart
           </Button>
         </ButtonGroup>

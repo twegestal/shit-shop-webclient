@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   HStack,
   Image,
@@ -6,64 +7,114 @@ import {
   Button,
   Spacer,
   useDisclosure,
+  Badge,
 } from "@chakra-ui/react";
 import logo from "../../assets/logo.jpeg";
 import ColorModeSwitch from "./ColorModeSwitch";
 import { FaRegUserCircle } from "react-icons/fa";
-import { MdOutlineNotificationsNone } from "react-icons/md";
 import { GrAddCircle } from "react-icons/gr";
-import { TiShoppingCart } from "react-icons/ti";
 import SellProductModal from "../modal/SellProductModal";
 import LoginModal from "../modal/LoginModal";
+import RegisterModal from "../modal/RegisterModal";
+import CartModal from "../modal/CartModal";
+import { Product } from "../main/ProductCardGrid";
+import CartIcon from "../icons/CartIcon";
+import InboxIcon from "../../assets/InboxIcon";
 
-const NavBar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+interface Props {
+  cartItems: Product[];
+  setCartItems: React.Dispatch<React.SetStateAction<Product[]>>;
+}
+
+const NavBar = ({ cartItems, setCartItems }: Props) => {
+  const [isCartOpen, setCartOpen] = useState(false);
+
   const {
     isOpen: isLoginOpen,
     onOpen: onLoginOpen,
     onClose: onLoginClose,
   } = useDisclosure();
 
-  const token = localStorage.getItem("token");
+  const {
+    isOpen: isRegisterOpen,
+    onOpen: onRegisterOpen,
+    onClose: onRegisterClose,
+  } = useDisclosure();
 
-  const handleAction = () => {
-    if (!token) {
-      onLoginOpen();
-    } else {
-      onOpen();
-    }
+  const {
+    isOpen: isSellProductOpen,
+    onOpen: onSellProductOpen,
+    onClose: onSellProductClose,
+  } = useDisclosure();
+
+  const handleLoginClose = () => {
+    onLoginClose();
+    onRegisterClose();
   };
+
+  const handleSwitchToRegister = () => {
+    onLoginClose();
+    onRegisterOpen();
+  };
+
+  const token = localStorage.getItem("token");
 
   return (
     <HStack justifyContent="space-between" padding="10px">
       <Image src={logo} boxSize="60px" />
-      <HStack spacing={4}>
-        <Button
-          colorScheme="telegram"
-          leftIcon={<GrAddCircle />}
-          onClick={handleAction}
-        >
-          <Spacer />
-          Sell product
-        </Button>
+      <HStack spacing={10}>
+        {token && (
+          <Button
+            colorScheme="telegram"
+            leftIcon={<GrAddCircle />}
+            onClick={onSellProductOpen}
+          >
+            Sell product
+          </Button>
+        )}
         {!token && (
           <VStack _hover={{ cursor: "pointer" }} onClick={onLoginOpen}>
             <FaRegUserCircle />
             <Link>Login</Link>
           </VStack>
         )}
-        <VStack _hover={{ cursor: "pointer" }} onClick={handleAction}>
-          <MdOutlineNotificationsNone />
-          <Link>Inbox</Link>
-        </VStack>
-        <VStack _hover={{ cursor: "pointer" }} onClick={handleAction}>
-          <TiShoppingCart />
-          <Link>Cart</Link>
-        </VStack>
+        {token && (
+          <VStack _hover={{ cursor: "pointer" }}>
+            <InboxIcon messageCount={0} />
+            <Link>Inbox</Link>
+          </VStack>
+        )}
+        {token && (
+          <VStack
+            _hover={{ cursor: "pointer" }}
+            onClick={() => setCartOpen(true)}
+          >
+           <CartIcon itemCount={cartItems.length} />
+            <Link>Cart</Link>
+          </VStack>
+        )}
         <ColorModeSwitch />
       </HStack>
-      <SellProductModal isOpen={isOpen} onClose={onClose} />
-      <LoginModal isOpen={isLoginOpen} onClose={onLoginClose} />
+      <SellProductModal
+        isOpen={isSellProductOpen}
+        onClose={onSellProductClose}
+      />
+      <LoginModal
+        isOpen={isLoginOpen}
+        onClose={handleLoginClose}
+        onSwitch={handleSwitchToRegister}
+      />
+      <RegisterModal
+        isOpen={isRegisterOpen}
+        onClose={handleLoginClose}
+        onSwitch={onLoginOpen}
+      />
+      <CartModal
+        isOpen={isCartOpen}
+        onClose={() => setCartOpen(false)}
+        cartItems={cartItems}
+        setCartItems={setCartItems}
+      />
     </HStack>
   );
 };

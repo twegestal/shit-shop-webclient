@@ -1,13 +1,6 @@
 import { useState, useEffect } from "react";
 import { GetData } from "../../services/GetData";
-import {
-  Menu,
-  Button,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Text,
-} from "@chakra-ui/react";
+import { Menu, Button, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
 const ProductTypeMenu = () => {
@@ -31,6 +24,7 @@ const ProductTypeMenu = () => {
         colorScheme="telegram"
         as={Button}
         rightIcon={<ChevronDownIcon />}
+        width="150px"
       >
         {selectedItem}
       </MenuButton>

@@ -2,8 +2,20 @@ import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/nav/NavBar";
 import SearchPanel from "./components/aside/SearchPanel";
 import ProductCardGrid from "./components/main/ProductCardGrid";
+import { Product } from "./components/main/ProductCardGrid";
+import { useState, useEffect } from "react";
 
 const App = () => {
+  const [cartItems, setCartItems] = useState<Product[]>(() => {
+    const storedCartItems = localStorage.getItem("cartItems");
+    return storedCartItems ? JSON.parse(storedCartItems) : [];
+  });
+
+  useEffect(() => {
+    console.log("Storing items to localStorage: ", cartItems); // New log statement
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
   return (
     <Grid
       templateAreas={{
@@ -12,7 +24,7 @@ const App = () => {
       }}
     >
       <GridItem area={"nav"} marginBottom="40px">
-        <NavBar />
+        <NavBar cartItems={cartItems} setCartItems={setCartItems} />
       </GridItem>
       <Show above="lg">
         <GridItem area={"aside"}>
@@ -20,7 +32,7 @@ const App = () => {
         </GridItem>
       </Show>
       <GridItem area={"main"}>
-        <ProductCardGrid />
+        <ProductCardGrid cartItems={cartItems} setCartItems={setCartItems} />
       </GridItem>
     </Grid>
   );

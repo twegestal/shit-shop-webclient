@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -17,9 +17,10 @@ import { LoginService } from "../../services/LoginService";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onSwitch: () => void;
 }
 
-const LoginModal = ({ isOpen, onClose }: Props) => {
+const LoginModal = ({ isOpen, onClose, onSwitch }: Props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -30,14 +31,15 @@ const LoginModal = ({ isOpen, onClose }: Props) => {
         data: { username, password },
       });
 
-      localStorage.setItem("token", data.auth_token);
+      if (data.auth_token) {
+        localStorage.setItem("token", data.auth_token);
+        onClose();
+      } else {
+        alert("Invalid username or password");
+      }
     } catch (error) {
-      alert("login failed");
+      alert(error);
     }
-
-    setUsername("");
-    setPassword("");
-    onClose();
   };
 
   return (
@@ -46,33 +48,27 @@ const LoginModal = ({ isOpen, onClose }: Props) => {
       <ModalContent>
         <ModalHeader>Login</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
+        <ModalBody pb={6}>
           <FormControl>
             <FormLabel>Username</FormLabel>
-            <Input
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+            <Input onChange={(e) => setUsername(e.target.value)} />
           </FormControl>
+
           <FormControl mt={4}>
             <FormLabel>Password</FormLabel>
             <Input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               type="password"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </FormControl>
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="green" mr={3}>
-            Register
-          </Button>
           <Button colorScheme="telegram" mr={3} onClick={handleLogin}>
             Login
           </Button>
-          <Button variant="ghost" onClick={onClose}>
-            Cancel
+          <Button variant="ghost" onClick={onSwitch}>
+            Register
           </Button>
         </ModalFooter>
       </ModalContent>

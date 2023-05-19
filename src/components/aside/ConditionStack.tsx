@@ -47,7 +47,7 @@ const ConditionStack = () => {
           colorScheme={
             lastSelected !== null &&
             (reverse ? index >= lastSelected : index <= lastSelected)
-              ? "blue"
+              ? "telegram"
               : "gray"
           }
           onClick={() => handleClick(index)}
