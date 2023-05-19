@@ -12,7 +12,6 @@ const App = () => {
   });
 
   useEffect(() => {
-    console.log("Storing items to localStorage: ", cartItems); // New log statement
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 

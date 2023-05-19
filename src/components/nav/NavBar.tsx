@@ -5,9 +5,7 @@ import {
   VStack,
   Link,
   Button,
-  Spacer,
   useDisclosure,
-  Badge,
 } from "@chakra-ui/react";
 import logo from "../../assets/logo.jpeg";
 import ColorModeSwitch from "./ColorModeSwitch";

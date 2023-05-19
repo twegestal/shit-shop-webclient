@@ -13,7 +13,7 @@ import {
 import CartCard from "../cards/CartCard";
 import { Product } from "../main/ProductCardGrid";
 
-interface CartModalProps {
+interface Props {
   isOpen: boolean;
   onClose: () => void;
   cartItems: Product[];
@@ -25,7 +25,7 @@ const CartModal = ({
   onClose,
   cartItems,
   setCartItems,
-}: CartModalProps) => {
+}: Props) => {
   const totalCost = cartItems.reduce((sum, item) => sum + item.price, 0);
 
   const removeItemFromCart = (id: number) => {
@@ -33,7 +33,7 @@ const CartModal = ({
   };
 
   const handleOrder = () => {
-    //fetch all items from localstorage and send to backen
+    //fetch all items from localstorage and send to backend
     //clear localstorage
   };
 

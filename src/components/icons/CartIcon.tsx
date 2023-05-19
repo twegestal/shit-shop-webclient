@@ -1,4 +1,4 @@
-import { HStack, Badge, Box, Icon, Text } from "@chakra-ui/react";
+import { HStack, Badge, Box, Icon } from "@chakra-ui/react";
 import { TiShoppingCart } from "react-icons/ti";
 
 interface Props {

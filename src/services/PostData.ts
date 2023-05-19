@@ -5,7 +5,7 @@ interface PostDataParams {
   data: any;
 }
 
-async function postData({ endpoint, data }: PostDataParams) {
+async function PostData({ endpoint, data }: PostDataParams) {
   const token = localStorage.getItem('token');
   let headers: HeadersInit = {
     'Content-Type': 'application/json',
@@ -28,4 +28,4 @@ async function postData({ endpoint, data }: PostDataParams) {
   return await response.json();
 }
 
-export { postData };
+export { PostData };
