@@ -11,6 +11,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import CartCard from "../cards/CartCard";
+import { PostData } from "../../services/PostData";
 import { Product } from "../main/ProductCardGrid";
 
 interface Props {
@@ -20,21 +21,29 @@ interface Props {
   setCartItems: (items: Product[]) => void;
 }
 
-const CartModal = ({
-  isOpen,
-  onClose,
-  cartItems,
-  setCartItems,
-}: Props) => {
+const CartModal = ({ isOpen, onClose, cartItems, setCartItems }: Props) => {
   const totalCost = cartItems.reduce((sum, item) => sum + item.price, 0);
 
   const removeItemFromCart = (id: number) => {
     setCartItems(cartItems.filter((item) => item.id !== id));
   };
 
-  const handleOrder = () => {
-    //fetch all items from localstorage and send to backend
-    //clear localstorage
+  const handleOrder = async () => {
+    try {
+      const cartData = localStorage.getItem("cartItems");
+      if (cartData) {
+        const cartItems = JSON.parse(cartData);
+        await PostData({
+          endpoint: "order",
+          data: cartItems,
+        });
+        localStorage.removeItem("cartItems");
+        setCartItems([]);
+        onClose();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

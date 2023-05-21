@@ -1,19 +1,26 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/nav/NavBar";
 import SearchPanel from "./components/aside/SearchPanel";
-import ProductCardGrid from "./components/main/ProductCardGrid";
-import { Product } from "./components/main/ProductCardGrid";
+import ProductCardGrid, { Product } from "./components/main/ProductCardGrid";
 import { useState, useEffect } from "react";
+import PollingService from "./services/PollingService";
 
 const App = () => {
   const [cartItems, setCartItems] = useState<Product[]>(() => {
     const storedCartItems = localStorage.getItem("cartItems");
     return storedCartItems ? JSON.parse(storedCartItems) : [];
   });
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
+
+  const interval = 5000;
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
+
+  const fetchNewMessages = () => {
+    console.log("Fetching new messages...");
+  };
 
   return (
     <Grid
@@ -27,12 +34,17 @@ const App = () => {
       </GridItem>
       <Show above="lg">
         <GridItem area={"aside"}>
-          <SearchPanel />
+          <SearchPanel setSearchResults={setSearchResults} />
         </GridItem>
       </Show>
       <GridItem area={"main"}>
-        <ProductCardGrid cartItems={cartItems} setCartItems={setCartItems} />
+        <ProductCardGrid
+          cartItems={cartItems}
+          setCartItems={setCartItems}
+          searchResults={searchResults}
+        />
       </GridItem>
+      <PollingService interval={interval} fetchNewMessages={fetchNewMessages} />
     </Grid>
   );
 };

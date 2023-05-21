@@ -9,8 +9,23 @@ import {
   HStack,
 } from "@chakra-ui/react";
 
-const PriceSlider = () => {
+interface Props {
+  onMinPriceSelect: (minPrice: number) => void;
+  onMaxPriceSelect: (maxPrice: number) => void;
+}
+
+const PriceSlider: React.FC<Props> = ({
+  onMinPriceSelect,
+  onMaxPriceSelect,
+}) => {
   const [values, setValues] = useState([0, 10000]);
+
+  const handlePriceSelect = (values: number[]) => {
+    const [minPrice, maxPrice] = values;
+    onMinPriceSelect(minPrice); // Pass the selected min price to the parent component
+    onMaxPriceSelect(maxPrice); // Pass the selected max price to the parent component
+    setValues(values); // Update the local state
+  };
 
   return (
     <Box>
@@ -24,7 +39,7 @@ const PriceSlider = () => {
         defaultValue={[0, 10000]}
         min={0}
         max={10000}
-        onChange={(values) => setValues(values)}
+        onChange={handlePriceSelect}
       >
         <RangeSliderTrack>
           <RangeSliderFilledTrack />

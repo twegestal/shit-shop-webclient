@@ -18,9 +18,15 @@ interface Props {
   setYearOfProduction: (yearOfProduction: string) => void;
   imageUrl: string;
   setImageUrl: (imageUrl: string) => void;
+  productType: string;
+  setProductType: (productType: string) => void;
+  condition: string;
+  setCondition: (condition: string) => void;
+  color: string;
+  setColor: (color: string) => void;
 }
 
-const SellProductForm = ({
+const SellProductForm: React.FC<Props> = ({
   name,
   setName,
   price,
@@ -29,13 +35,17 @@ const SellProductForm = ({
   setYearOfProduction,
   imageUrl,
   setImageUrl,
-}: Props) => {
-  const [productType, setProductType] = useState("");
-  const [condition, setCondition] = useState("");
-  const [color, setColor] = useState("");
-  const [productTypes, setProductTypes] = useState([]);
-  const [conditions, setConditions] = useState([]);
-  const [colors, setColors] = useState([]);
+  productType,
+  setProductType,
+  condition,
+  setCondition,
+  color,
+  setColor,
+}) => {
+  const [productTypes, setProductTypes] = useState<string[]>([]);
+  const [conditions, setConditions] = useState<string[]>([]);
+  const [colors, setColors] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     GetData({
@@ -57,8 +67,30 @@ const SellProductForm = ({
       data: null,
     })
       .then((col) => setColors(col))
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => setIsLoading(false));
   }, []);
+
+  const handleProductTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedType = e.target.value;
+    if (selectedType) {
+      setProductType(selectedType);
+    }
+  };
+
+  const handleConditionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedCondition = e.target.value;
+    if (selectedCondition) {
+      setCondition(selectedCondition);
+    }
+  };
+
+  const handleColorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedColor = e.target.value;
+    if (selectedColor) {
+      setColor(selectedColor);
+    }
+  };
 
   return (
     <Box as="form">
@@ -69,16 +101,24 @@ const SellProductForm = ({
 
       <FormControl>
         <FormLabel>Product Type</FormLabel>
-        <Select
-          value={productType}
-          onChange={(e) => setProductType(e.target.value)}
-        >
-          {productTypes.map((type, index) => (
-            <option key={index} value={type}>
-              {type}
-            </option>
-          ))}
-        </Select>
+        {isLoading ? (
+          <span>Loading...</span>
+        ) : (
+          <Select
+            value={productType}
+            onChange={handleProductTypeChange}
+            required
+          >
+            {productType ? null : (
+              <option value="">Choose a product type</option>
+            )}
+            {productTypes.map((type, index) => (
+              <option key={index} value={type}>
+                {type}
+              </option>
+            ))}
+          </Select>
+        )}
       </FormControl>
 
       <FormControl>
@@ -96,27 +136,34 @@ const SellProductForm = ({
 
       <FormControl>
         <FormLabel>Condition</FormLabel>
-        <Select
-          value={condition}
-          onChange={(e) => setCondition(e.target.value)}
-        >
-          {conditions.map((cond, index) => (
-            <option key={index} value={cond}>
-              {cond}
-            </option>
-          ))}
-        </Select>
+        {isLoading ? (
+          <span>Loading...</span>
+        ) : (
+          <Select value={condition} onChange={handleConditionChange} required>
+            {condition ? null : <option value="">Choose a condition</option>}
+            {conditions.map((cond, index) => (
+              <option key={index} value={cond}>
+                {cond}
+              </option>
+            ))}
+          </Select>
+        )}
       </FormControl>
 
       <FormControl>
         <FormLabel>Color</FormLabel>
-        <Select value={color} onChange={(e) => setColor(e.target.value)}>
-          {colors.map((cond, index) => (
-            <option key={index} value={cond}>
-              {cond}
-            </option>
-          ))}
-        </Select>
+        {isLoading ? (
+          <span>Loading...</span>
+        ) : (
+          <Select value={color} onChange={handleColorChange} required>
+            {color ? null : <option value="">Choose a color</option>}
+            {colors.map((cond, index) => (
+              <option key={index} value={cond}>
+                {cond}
+              </option>
+            ))}
+          </Select>
+        )}
       </FormControl>
 
       <FormControl>

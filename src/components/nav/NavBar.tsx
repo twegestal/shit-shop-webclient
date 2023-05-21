@@ -18,6 +18,8 @@ import CartModal from "../modal/CartModal";
 import { Product } from "../main/ProductCardGrid";
 import CartIcon from "../icons/CartIcon";
 import InboxIcon from "../icons/InboxIcon";
+import WishListIcon from "../icons/WishListIcon";
+import OrderHistoryIcon from "../icons/OrderHistoryIcon";
 
 interface Props {
   cartItems: Product[];
@@ -83,11 +85,23 @@ const NavBar = ({ cartItems, setCartItems }: Props) => {
           </VStack>
         )}
         {token && (
+          <VStack _hover={{ cursor: "pointer" }}>
+            <WishListIcon />
+            <Link>Wishlist</Link>
+          </VStack>
+        )}
+        {token && (
+          <VStack _hover={{ cursor: "pointer" }}>
+            <OrderHistoryIcon />
+            <Link>Order history</Link>
+          </VStack>
+        )}
+        {token && (
           <VStack
             _hover={{ cursor: "pointer" }}
             onClick={() => setCartOpen(true)}
           >
-           <CartIcon itemCount={cartItems.length} />
+            <CartIcon itemCount={cartItems.length} />
             <Link>Cart</Link>
           </VStack>
         )}

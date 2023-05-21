@@ -55,11 +55,13 @@ const RegisterForm = ({ onSwitch, onClose }: Props) => {
 
     try {
       const data = await LoginService({
-        endpoint: "register",
+        endpoint: "user",
         data: { firstName, lastName, username, email, dob, password },
       });
 
-      localStorage.setItem("token", data.token);
+      if (data.auth_token) {
+        localStorage.setItem("token", data.auth_token);
+      }
       onClose();
     } catch (error) {
       alert(error);

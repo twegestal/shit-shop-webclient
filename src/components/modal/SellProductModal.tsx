@@ -10,6 +10,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import SellProductForm from "../forms/SellProductForm";
+import { PostData } from "../../services/PostData";
 
 interface Props {
   isOpen: boolean;
@@ -21,12 +22,67 @@ const SellProductModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const [price, setPrice] = useState("");
   const [yearOfProduction, setYearOfProduction] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [productType, setProductType] = useState("");
+  const [condition, setCondition] = useState("");
+  const [color, setColor] = useState("");
 
-  const handleSellProduct = () => {
-    // Handle the submission of the product here...
+  const handleSellProduct = async () => {
+    // Check if all form fields are filled
+    if (
+      name &&
+      price &&
+      yearOfProduction &&
+      imageUrl &&
+      productType &&
+      condition &&
+      color
+    ) {
+      // Validate yearOfProduction and price
+      const currentYear = new Date().getFullYear();
+      const yearOfProductionNum = parseInt(yearOfProduction, 10);
+      const priceNum = parseFloat(price);
 
-    // Close the modal
-    onClose();
+      if (
+        yearOfProductionNum >= 0 &&
+        yearOfProductionNum <= currentYear &&
+        priceNum >= 0
+      ) {
+        try {
+          const data = {
+            name,
+            price: priceNum,
+            yearOfProduction: yearOfProductionNum,
+            imageUrl,
+            productType,
+            condition,
+            color,
+          };
+
+          await PostData({ endpoint: "product", data });
+
+          console.log("Product sold successfully!");
+
+          setName("");
+          setPrice("");
+          setYearOfProduction("");
+          setImageUrl("");
+          setProductType("");
+          setCondition("");
+          setColor("");
+
+          // Close the modal
+          onClose();
+        } catch (error) {
+          console.log("An error occurred while selling the product:", error);
+        }
+      } else {
+        // Show error message if validation fails
+        console.log("Invalid year or price");
+      }
+    } else {
+      // Show error message if any form field is empty
+      console.log("Please fill all form fields");
+    }
   };
 
   return (
@@ -50,6 +106,12 @@ const SellProductModal: React.FC<Props> = ({ isOpen, onClose }) => {
             setYearOfProduction={setYearOfProduction}
             imageUrl={imageUrl}
             setImageUrl={setImageUrl}
+            productType={productType}
+            setProductType={setProductType}
+            condition={condition}
+            setCondition={setCondition}
+            color={color}
+            setColor={setColor}
           />
         </ModalBody>
 

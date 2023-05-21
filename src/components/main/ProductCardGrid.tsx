@@ -18,9 +18,14 @@ export interface Product {
 interface Props {
   cartItems: Product[];
   setCartItems: React.Dispatch<React.SetStateAction<Product[]>>;
+  searchResults: Product[];
 }
 
-const ProductCardGrid = ({ cartItems, setCartItems }: Props) => {
+const ProductCardGrid: React.FC<Props> = ({
+  cartItems,
+  setCartItems,
+  searchResults,
+}) => {
   const [products, setProducts] = useState<Product[]>([]);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -44,15 +49,19 @@ const ProductCardGrid = ({ cartItems, setCartItems }: Props) => {
   };
 
   useEffect(() => {
-    GetData({
-      endpoint: "product/",
-      data: null,
-    })
-      .then((data: Product[]) => {
-        setProducts(data);
+    if (searchResults.length === 0) {
+      GetData({
+        endpoint: "product/",
+        data: null,
       })
-      .catch((error) => console.log(error));
-  }, []);
+        .then((data: Product[]) => {
+          setProducts(data);
+        })
+        .catch((error) => console.log(error));
+    } else {
+      setProducts(searchResults);
+    }
+  }, [searchResults]);
 
   return (
     <SimpleGrid columns={3} padding="10px" spacing={10}>

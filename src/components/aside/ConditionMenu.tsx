@@ -2,9 +2,17 @@ import { useEffect, useState } from "react";
 import { Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
 import { GetData } from "../../services/GetData";
 
+interface Props {
+  onMinConditionSelect: (condition: string) => void;
+  onMaxConditionSelect: (condition: string) => void;
+}
+
 const conditionsOrder = ["Defect", "Bad", "Good", "Very_Good", "New"]; // Conditions in the desired order
 
-const ConditionMenu = () => {
+const ConditionMenu: React.FC<Props> = ({
+  onMinConditionSelect,
+  onMaxConditionSelect,
+}) => {
   const [conditions, setConditions] = useState<string[]>([]);
   const [minCondition, setMinCondition] = useState<string | null>(null);
   const [maxCondition, setMaxCondition] = useState<string | null>(null);
@@ -40,6 +48,8 @@ const ConditionMenu = () => {
     ) {
       setMaxCondition(null);
     }
+
+    onMinConditionSelect(condition); // Call the onMinConditionSelect prop
   };
 
   const handleMaxConditionSelect = (condition: string) => {
@@ -53,6 +63,8 @@ const ConditionMenu = () => {
     ) {
       setMinCondition(null);
     }
+
+    onMaxConditionSelect(condition); // Call the onMaxConditionSelect prop
   };
 
   return (
