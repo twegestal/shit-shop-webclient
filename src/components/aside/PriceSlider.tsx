@@ -14,10 +14,10 @@ interface Props {
   onMaxPriceSelect: (maxPrice: number) => void;
 }
 
-const PriceSlider: React.FC<Props> = ({
+const PriceSlider = ({
   onMinPriceSelect,
   onMaxPriceSelect,
-}) => {
+}: Props) => {
   const [values, setValues] = useState([0, 10000]);
 
   const handlePriceSelect = (values: number[]) => {

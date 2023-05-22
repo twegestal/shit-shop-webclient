@@ -1,8 +1,9 @@
-Login och Register //Koppla till backend, annars klart.
-Search // koppla till backend, annars klart
-Get specific
+Login och Register //Klart
+Search // Klart
+Sell product // Klart
+Get specific //När ska vi egentligen göra detta?
+User-icon i Nav med drop down-meny: Wishlist, orderhistory, sign out
 Messages
 Accept/Decline orders
 Order history
-Sell product
 

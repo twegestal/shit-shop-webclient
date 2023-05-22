@@ -26,7 +26,7 @@ interface Props {
   setColor: (color: string) => void;
 }
 
-const SellProductForm: React.FC<Props> = ({
+const SellProductForm = ({
   name,
   setName,
   price,
@@ -41,7 +41,7 @@ const SellProductForm: React.FC<Props> = ({
   setCondition,
   color,
   setColor,
-}) => {
+}: Props) => {
   const [productTypes, setProductTypes] = useState<string[]>([]);
   const [conditions, setConditions] = useState<string[]>([]);
   const [colors, setColors] = useState<string[]>([]);

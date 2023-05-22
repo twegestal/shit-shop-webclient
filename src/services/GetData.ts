@@ -1,11 +1,11 @@
 const API_BASE_URL = 'http://localhost:5008/';
 
-interface GetDataParams {
+interface Props {
   endpoint: string;
   data: any;
 }
 
-async function GetData({ endpoint, data }: GetDataParams) {
+async function GetData({ endpoint, data }: Props) {
   const token = localStorage.getItem('token');
   let headers: HeadersInit = {
     'Content-Type': 'application/json',

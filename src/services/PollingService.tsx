@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 
-interface PollingServiceProps {
+interface Props {
   interval: number;
   fetchNewMessages: () => void;
 }
 
-const PollingService = ({ interval, fetchNewMessages }: PollingServiceProps) => {
+const PollingService = ({ interval, fetchNewMessages }: Props) => {
   useEffect(() => {
     const id = setInterval(fetchNewMessages, interval);
     return () => {

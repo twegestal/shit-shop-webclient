@@ -12,7 +12,7 @@ interface Props {
   setSearchResults: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 
-const SearchPanel: React.FC<Props> = ({ setSearchResults }) => {
+const SearchPanel = ({ setSearchResults }: Props) => {
   const [loading, setLoading] = useState(false);
   const [selectedProductType, setSelectedProductType] = useState("");
   const [selectedMinPrice, setSelectedMinPrice] = useState(0);

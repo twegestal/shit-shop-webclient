@@ -21,11 +21,7 @@ interface Props {
   searchResults: Product[];
 }
 
-const ProductCardGrid: React.FC<Props> = ({
-  cartItems,
-  setCartItems,
-  searchResults,
-}) => {
+const ProductCardGrid = ({ cartItems, setCartItems, searchResults }: Props) => {
   const [products, setProducts] = useState<Product[]>([]);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 

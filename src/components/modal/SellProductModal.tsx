@@ -17,7 +17,7 @@ interface Props {
   onClose: () => void;
 }
 
-const SellProductModal: React.FC<Props> = ({ isOpen, onClose }) => {
+const SellProductModal = ({ isOpen, onClose }: Props) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [yearOfProduction, setYearOfProduction] = useState("");

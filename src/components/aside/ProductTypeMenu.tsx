@@ -7,7 +7,7 @@ interface Props {
   onProductTypeSelect: (selectedProductType: string) => void;
 }
 
-const ProductTypeMenu: React.FC<Props> = ({ onProductTypeSelect }) => {
+const ProductTypeMenu = ({ onProductTypeSelect }: Props) => {
   const [data, setData] = useState([]);
   const [selectedItem, setSelectedItem] = useState("");
 

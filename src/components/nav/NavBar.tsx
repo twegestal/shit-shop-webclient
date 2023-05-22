@@ -9,7 +9,6 @@ import {
 } from "@chakra-ui/react";
 import logo from "../../assets/logo.jpeg";
 import ColorModeSwitch from "./ColorModeSwitch";
-import { FaRegUserCircle } from "react-icons/fa";
 import { GrAddCircle } from "react-icons/gr";
 import SellProductModal from "../modal/SellProductModal";
 import LoginModal from "../modal/LoginModal";
@@ -18,8 +17,9 @@ import CartModal from "../modal/CartModal";
 import { Product } from "../main/ProductCardGrid";
 import CartIcon from "../icons/CartIcon";
 import InboxIcon from "../icons/InboxIcon";
-import WishListIcon from "../icons/WishListIcon";
-import OrderHistoryIcon from "../icons/OrderHistoryIcon";
+import AccountMenu from "./AccountMenu";
+import { PostData } from "../../services/PostData";
+import AccountIcon from "../icons/AccountIcon";
 
 interface Props {
   cartItems: Product[];
@@ -57,7 +57,19 @@ const NavBar = ({ cartItems, setCartItems }: Props) => {
     onRegisterOpen();
   };
 
+  const handleSignOut = async () => {
+    try {
+      await PostData({ endpoint: "logout", data: null });
+      localStorage.removeItem("token");
+      onClose();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const token = localStorage.getItem("token");
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <HStack justifyContent="space-between" padding="10px">
@@ -65,6 +77,7 @@ const NavBar = ({ cartItems, setCartItems }: Props) => {
       <HStack spacing={10}>
         {token && (
           <Button
+            size={"lg"}
             colorScheme="telegram"
             leftIcon={<GrAddCircle />}
             onClick={onSellProductOpen}
@@ -74,26 +87,14 @@ const NavBar = ({ cartItems, setCartItems }: Props) => {
         )}
         {!token && (
           <VStack _hover={{ cursor: "pointer" }} onClick={onLoginOpen}>
-            <FaRegUserCircle />
+            <AccountIcon />
             <Link>Login</Link>
           </VStack>
         )}
         {token && (
           <VStack _hover={{ cursor: "pointer" }}>
             <InboxIcon messageCount={0} />
-            <Link>Inbox</Link>
-          </VStack>
-        )}
-        {token && (
-          <VStack _hover={{ cursor: "pointer" }}>
-            <WishListIcon />
-            <Link>Wishlist</Link>
-          </VStack>
-        )}
-        {token && (
-          <VStack _hover={{ cursor: "pointer" }}>
-            <OrderHistoryIcon />
-            <Link>Order history</Link>
+            <Link>Messages</Link>
           </VStack>
         )}
         {token && (
@@ -103,6 +104,16 @@ const NavBar = ({ cartItems, setCartItems }: Props) => {
           >
             <CartIcon itemCount={cartItems.length} />
             <Link>Cart</Link>
+          </VStack>
+        )}
+        {token && (
+          <VStack _hover={{ cursor: "pointer" }} onClick={onOpen}>
+            <AccountMenu
+              isOpen={isOpen}
+              onClose={onClose}
+              onSignOut={handleSignOut}
+            />
+            <Link>Account</Link>
           </VStack>
         )}
         <ColorModeSwitch />

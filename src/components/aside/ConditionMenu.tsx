@@ -9,10 +9,10 @@ interface Props {
 
 const conditionsOrder = ["Defect", "Bad", "Good", "Very_Good", "New"]; // Conditions in the desired order
 
-const ConditionMenu: React.FC<Props> = ({
+const ConditionMenu = ({
   onMinConditionSelect,
   onMaxConditionSelect,
-}) => {
+}: Props) => {
   const [conditions, setConditions] = useState<string[]>([]);
   const [minCondition, setMinCondition] = useState<string | null>(null);
   const [maxCondition, setMaxCondition] = useState<string | null>(null);

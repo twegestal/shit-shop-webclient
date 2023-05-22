@@ -1,11 +1,11 @@
 export const API_BASE_URL = 'http://localhost:5008/';
 
-interface DataParams {
+interface Props {
     endpoint: string,
     data: any;
 }
 
-async function LoginService({endpoint, data}: DataParams) {
+async function LoginService({endpoint, data}: Props) {
     const response = await fetch(API_BASE_URL + endpoint, {
         method: 'POST',
         headers: {
