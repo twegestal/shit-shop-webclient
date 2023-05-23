@@ -6,8 +6,8 @@ interface Props {
   onMinConditionSelect: (condition: string) => void;
   onMaxConditionSelect: (condition: string) => void;
 }
-
-const conditionOrder = ["DEFECT", "GOOD", "VERY GOOD", "NEW"]; // Conditions in the desired order
+ // Conditions in order, to be able to sort them
+const conditionOrder = ["DEFECT", "GOOD", "VERY GOOD", "NEW"];
 
 const ConditionMenu = ({
   onMinConditionSelect,
@@ -25,7 +25,7 @@ const ConditionMenu = ({
           method: 'GET',
           data: null,
         });
-        // Sort the conditions based on the desired order
+        // Sort the conditions based on the order
         const sortedConditions = conditionOrder.filter((condition) =>
           response.includes(condition.toUpperCase())
         );
@@ -50,7 +50,7 @@ const ConditionMenu = ({
       setMaxCondition(null);
     }
 
-    onMinConditionSelect(condition); // Call the onMinConditionSelect prop
+    onMinConditionSelect(condition);
   };
 
   const handleMaxConditionSelect = (condition: string) => {
@@ -65,7 +65,7 @@ const ConditionMenu = ({
       setMinCondition(null);
     }
 
-    onMaxConditionSelect(condition); // Call the onMaxConditionSelect prop
+    onMaxConditionSelect(condition);
   };
 
   return (

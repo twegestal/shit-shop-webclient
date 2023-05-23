@@ -25,7 +25,7 @@ const ProductTypeMenu = ({ onProductTypeSelect }: Props) => {
 
   const handleProductTypeSelect = (productType: string) => {
     setSelectedItem(productType);
-    onProductTypeSelect(productType); // Pass the selected product type to the parent component
+    onProductTypeSelect(productType);
   };
 
   return (

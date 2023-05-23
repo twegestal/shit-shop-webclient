@@ -7,7 +7,6 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { LoginService } from "../../services/LoginService";
 import { FetchData } from "../../services/FetchData";
 
 interface Props {
@@ -57,12 +56,14 @@ const RegisterForm = ({ onSwitch, onClose }: Props) => {
     try {
       const data = await FetchData({
         endpoint: "user",
-        method: 'POST',
+        method: "POST",
         data: { firstName, lastName, username, email, dob, password },
       });
 
       if (data.auth_token) {
         localStorage.setItem("token", data.auth_token);
+      } else {
+        alert(data.message);
       }
       onClose();
     } catch (error) {

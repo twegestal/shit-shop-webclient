@@ -2,7 +2,7 @@ const API_BASE_URL = "http://localhost:5008/";
 
 interface Props {
   endpoint: string;
-  method: "GET" | "POST" | "PUT" | "DELETE"; // Add other supported HTTP methods if needed
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
   data?: any;
 }
 
@@ -16,16 +16,16 @@ async function FetchData({ endpoint, method, data }: Props) {
     headers = { ...headers, auth_token: token };
   }
 
-  const requestOptions: RequestInit = {
+  const request: RequestInit = {
     method,
     headers,
   };
 
   if (data) {
-    requestOptions.body = JSON.stringify(data);
+    request.body = JSON.stringify(data);
   }
 
-  const response = await fetch(API_BASE_URL + endpoint, requestOptions);
+  const response = await fetch(API_BASE_URL + endpoint, request);
 
   if (!response.ok) {
     throw new Error(`An error occurred: ${response.statusText}`);
@@ -36,7 +36,7 @@ async function FetchData({ endpoint, method, data }: Props) {
     return await response.json();
   }
 
-  return; // Return undefined if the response doesn't have JSON content
+  return; //Server does not always respons with json, then return undefined
 }
 
 export { FetchData };

@@ -42,9 +42,6 @@ const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
         data: payload,
       });
 
-      // Handle the response
-      console.log("Search Result:", response);
-
       if (response && Array.isArray(response)) {
         const productPromises = response.map(async (order) => {
           const productID = order.productID;

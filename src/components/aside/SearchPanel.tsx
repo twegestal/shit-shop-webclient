@@ -19,7 +19,7 @@ const SearchPanel = ({ setSearchResults }: Props) => {
   const [selectedMaxPrice, setSelectedMaxPrice] = useState(0);
   const [selectedMinCondition, setSelectedMinCondition] = useState("");
   const [selectedMaxCondition, setSelectedMaxCondition] = useState("");
-  const [showAlert, setShowAlert] = useState(false); // Add state for showing the alert
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleSearch = async () => {
     if (
@@ -27,15 +27,13 @@ const SearchPanel = ({ setSearchResults }: Props) => {
       !selectedMinCondition ||
       !selectedMaxCondition
     ) {
-      // Validate that all required fields are selected
-      setShowAlert(true); // Show the alert
+      setShowAlert(true);
       return;
     }
 
     try {
       setLoading(true);
 
-      // Create the payload for the POST request
       const payload = {
         productType: selectedProductType,
         priceMin: selectedMinPrice,
@@ -53,7 +51,6 @@ const SearchPanel = ({ setSearchResults }: Props) => {
       });
       console.log(response);
 
-      // Update the search results with the response
       setSearchResults(response);
     } catch (error) {
       console.log(error);
@@ -63,7 +60,7 @@ const SearchPanel = ({ setSearchResults }: Props) => {
   };
 
   const handleCloseAlert = () => {
-    setShowAlert(false); // Close the alert
+    setShowAlert(false);
   };
 
   return (

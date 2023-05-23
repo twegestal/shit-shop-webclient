@@ -73,17 +73,16 @@ const SellProductModal = ({ isOpen, onClose }: Props) => {
           setCondition("");
           setColor("");
 
-          // Close the modal
           onClose();
         } catch (error) {
           console.log("An error occurred while selling the product:", error);
         }
       } else {
-        // Show error message if validation fails
+        // we show the alert component here instead
         console.log("Invalid year or price");
       }
     } else {
-      // Show error message if any form field is empty
+      // we show the alert component here instead
       console.log("Please fill all form fields");
     }
   };

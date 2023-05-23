@@ -33,7 +33,7 @@ const ProductSubscriptionsModal = ({ isOpen, onClose }: Props) => {
           data: null,
         });
 
-        onClose(); // Close the modal
+        onClose();
       } catch (error) {
         console.log("An error occurred:", error);
       }

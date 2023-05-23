@@ -22,9 +22,9 @@ const PriceSlider = ({
 
   const handlePriceSelect = (values: number[]) => {
     const [minPrice, maxPrice] = values;
-    onMinPriceSelect(minPrice); // Pass the selected min price to the parent component
-    onMaxPriceSelect(maxPrice); // Pass the selected max price to the parent component
-    setValues(values); // Update the local state
+    onMinPriceSelect(minPrice); 
+    onMaxPriceSelect(maxPrice); 
+    setValues(values);
   };
 
   return (

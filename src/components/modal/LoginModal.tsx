@@ -12,7 +12,6 @@ import {
   Input,
   Button,
 } from "@chakra-ui/react";
-import { LoginService } from "../../services/LoginService";
 import { FetchData } from "../../services/FetchData";
 
 interface Props {
