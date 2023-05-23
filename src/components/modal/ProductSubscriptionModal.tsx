@@ -10,7 +10,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import ProductTypeMenu from "../aside/ProductTypeMenu";
-import { PostData } from "../../services/PostData";
+import { FetchData } from "../../services/FetchData";
 
 interface Props {
   isOpen: boolean;
@@ -27,13 +27,15 @@ const ProductSubscriptionsModal = ({ isOpen, onClose }: Props) => {
   const handleSubscribe = async () => {
     if (selectedProductType) {
       try {
-        await PostData({
+        await FetchData({
           endpoint: `product/subscribe/${selectedProductType}`,
+          method: 'POST',
           data: null,
         });
-        onClose();
+
+        onClose(); // Close the modal
       } catch (error) {
-        console.log(error);
+        console.log("An error occurred:", error);
       }
     } else {
       console.log("Please select a product type");

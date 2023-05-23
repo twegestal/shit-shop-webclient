@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { GetData } from "../../services/GetData";
 import { Menu, Button, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { FetchData } from "../../services/FetchData";
 
 interface Props {
   onProductTypeSelect: (selectedProductType: string) => void;
@@ -12,8 +12,9 @@ const ProductTypeMenu = ({ onProductTypeSelect }: Props) => {
   const [selectedItem, setSelectedItem] = useState("");
 
   useEffect(() => {
-    GetData({
+    FetchData({
       endpoint: "product/types",
+      method: 'GET',
       data: null,
     })
       .then((data) => {

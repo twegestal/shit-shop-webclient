@@ -7,7 +7,7 @@ import {
   Select,
   Box,
 } from "@chakra-ui/react";
-import { GetData } from "../../services/GetData";
+import { FetchData } from "../../services/FetchData";
 
 interface Props {
   name: string;
@@ -48,22 +48,25 @@ const SellProductForm = ({
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    GetData({
+    FetchData({
       endpoint: "product/condition",
+      method: 'GET',
       data: null,
     })
       .then((cond) => setConditions(cond))
       .catch((error) => console.log(error));
 
-    GetData({
+    FetchData({
       endpoint: "product/types",
+      method: 'GET',
       data: null,
     })
       .then((type) => setProductTypes(type))
       .catch((error) => console.log(error));
 
-    GetData({
+    FetchData({
       endpoint: "product/color",
+      method: 'GET',
       data: null,
     })
       .then((col) => setColors(col))

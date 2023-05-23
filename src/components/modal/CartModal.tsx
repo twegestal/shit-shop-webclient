@@ -11,8 +11,8 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import CartCard from "../cards/CartCard";
-import { PostData } from "../../services/PostData";
 import { Product } from "../main/ProductCardGrid";
+import { FetchData } from "../../services/FetchData";
 
 interface Props {
   isOpen: boolean;
@@ -25,17 +25,18 @@ const CartModal = ({ isOpen, onClose, cartItems, setCartItems }: Props) => {
   const totalCost = cartItems.reduce((sum, item) => sum + item.price, 0);
 
   const removeItemFromCart = (id: number) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
+    setCartItems(cartItems.filter((item) => item.productID !== id));
   };
 
   const handleOrder = async () => {
     try {
       const cartData = localStorage.getItem("cartItems");
+      const productIDs = cartItems.map((item: Product) => item.productID);
       if (cartData) {
-        const cartItems = JSON.parse(cartData);
-        await PostData({
+        await FetchData({
           endpoint: "order",
-          data: cartItems,
+          method: "POST",
+          data: productIDs,
         });
         localStorage.removeItem("cartItems");
         setCartItems([]);
@@ -59,11 +60,11 @@ const CartModal = ({ isOpen, onClose, cartItems, setCartItems }: Props) => {
             <VStack spacing={4}>
               {cartItems.map((item) => (
                 <CartCard
-                  key={item.id}
-                  image={item.image}
+                  key={item.productID}
+                  image={item.imageUrl}
                   name={item.name}
                   price={item.price}
-                  onDelete={() => removeItemFromCart(item.id)}
+                  onDelete={() => removeItemFromCart(item.productID)}
                 />
               ))}
             </VStack>

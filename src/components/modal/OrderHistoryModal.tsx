@@ -12,10 +12,9 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import { PostData } from "../../services/PostData";
-import { GetData } from "../../services/GetData";
 import OrderHistoryCard from "../cards/OrderHistoryCard";
 import { Product } from "../main/ProductCardGrid";
+import { FetchData } from "../../services/FetchData";
 
 interface Props {
   isOpen: boolean;
@@ -37,8 +36,9 @@ const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
     };
 
     try {
-      const response = await PostData({
+      const response = await FetchData({
         endpoint: "order/history",
+        method: 'POST',
         data: payload,
       });
 
@@ -48,8 +48,9 @@ const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
       if (response && Array.isArray(response)) {
         const productPromises = response.map(async (order) => {
           const productID = order.productID;
-          const productResponse = await GetData({
+          const productResponse = await FetchData({
             endpoint: `order/${productID}`,
+            method: 'GET',
             data: null,
           });
 
@@ -104,7 +105,7 @@ const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
               Search
             </Button>
             {products.map((product) => (
-              <OrderHistoryCard key={product.id} product={product} />
+              <OrderHistoryCard key={product.productID} product={product} />
             ))}
           </VStack>
         </ModalBody>

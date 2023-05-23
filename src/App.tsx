@@ -4,6 +4,7 @@ import SearchPanel from "./components/aside/SearchPanel";
 import ProductCardGrid, { Product } from "./components/main/ProductCardGrid";
 import { useState, useEffect } from "react";
 import PollingService from "./services/PollingService";
+import { FetchData } from "./services/FetchData";
 
 const App = () => {
   const [cartItems, setCartItems] = useState<Product[]>(() => {
@@ -19,7 +20,12 @@ const App = () => {
   }, [cartItems]);
 
   const fetchNewMessages = () => {
-    console.log("Fetching new messages...");
+    /*const response = FetchData({
+      endpoint: "message/unsent",
+      method: "GET",
+      data: null,
+    });
+    console.log(response);*/
   };
 
   return (

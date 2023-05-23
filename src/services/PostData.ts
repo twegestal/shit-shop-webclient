@@ -15,6 +15,8 @@ async function PostData({ endpoint, data }: Props) {
     headers = { ...headers, 'auth_token': token }
   }
 
+  console.log(data)
+
   const response = await fetch(API_BASE_URL + endpoint, {
     method: 'POST',
     headers,

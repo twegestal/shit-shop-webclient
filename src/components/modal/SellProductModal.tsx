@@ -10,7 +10,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import SellProductForm from "../forms/SellProductForm";
-import { PostData } from "../../services/PostData";
+import { FetchData } from "../../services/FetchData";
 
 interface Props {
   isOpen: boolean;
@@ -58,7 +58,10 @@ const SellProductModal = ({ isOpen, onClose }: Props) => {
             color,
           };
 
-          await PostData({ endpoint: "product", data });
+          await FetchData({ 
+            endpoint: "product", 
+            method: 'POST',
+            data });
 
           console.log("Product sold successfully!");
 

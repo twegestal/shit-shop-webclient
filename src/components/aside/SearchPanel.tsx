@@ -5,8 +5,8 @@ import ProductTypeMenu from "./ProductTypeMenu";
 import { BsSearch } from "react-icons/bs";
 import ConditionMenu from "./ConditionMenu";
 import { Product } from "../main/ProductCardGrid";
-import { PostData } from "../../services/PostData";
 import ErrorAlert from "../error/AlertMessage";
+import { FetchData } from "../../services/FetchData";
 
 interface Props {
   setSearchResults: React.Dispatch<React.SetStateAction<Product[]>>;
@@ -38,17 +38,20 @@ const SearchPanel = ({ setSearchResults }: Props) => {
       // Create the payload for the POST request
       const payload = {
         productType: selectedProductType,
-        minPrice: selectedMinPrice,
-        maxPrice: selectedMaxPrice,
-        minCondition: selectedMinCondition,
-        maxCondition: selectedMaxCondition,
+        priceMin: selectedMinPrice,
+        priceMax: selectedMaxPrice,
+        conditionMin: selectedMinCondition,
+        conditionMax: selectedMaxCondition,
       };
 
-      // Make the POST request to the backend
-      const response = await PostData({
+      console.log(payload);
+
+      const response = await FetchData({
         endpoint: "product/search",
+        method: "POST",
         data: payload,
       });
+      console.log(response);
 
       // Update the search results with the response
       setSearchResults(response);

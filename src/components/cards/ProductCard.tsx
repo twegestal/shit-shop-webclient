@@ -26,7 +26,7 @@ const ProductCard = ({ product, addToCart }: Props) => {
     <Card width="300px" borderRadius={10} overflow="hidden">
       <CardBody>
         <Image
-          src={product.image}
+          src={product.imageUrl}
           alt="Can't find image"
           borderRadius="lg"
           height="200px"
@@ -35,7 +35,7 @@ const ProductCard = ({ product, addToCart }: Props) => {
         <Stack mt="6" spacing="3">
           <Heading size="md">{product.name}</Heading>
           <Text>Type: {product.productType}</Text>
-          <Text>Year: {product.yop}</Text>
+          <Text>Year: {product.yearOfProduction}</Text>
           <Text>Condition: {product.condition}</Text>
           <Text>Color: {product.color}</Text>
           <Text color="blue.600" fontSize="2xl">

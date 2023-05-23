@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -13,6 +13,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { LoginService } from "../../services/LoginService";
+import { FetchData } from "../../services/FetchData";
 
 interface Props {
   isOpen: boolean;
@@ -26,8 +27,9 @@ const LoginModal = ({ isOpen, onClose, onSwitch }: Props) => {
 
   const handleLogin = async () => {
     try {
-      const data = await LoginService({
+      const data = await FetchData({
         endpoint: "token",
+        method: "POST",
         data: { username, password },
       });
 

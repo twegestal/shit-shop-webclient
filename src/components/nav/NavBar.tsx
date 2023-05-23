@@ -18,8 +18,8 @@ import { Product } from "../main/ProductCardGrid";
 import CartIcon from "../icons/CartIcon";
 import InboxIcon from "../icons/InboxIcon";
 import AccountMenu from "./AccountMenu";
-import { PostData } from "../../services/PostData";
 import AccountIcon from "../icons/AccountIcon";
+import MessageModal from "../modal/MessageModal";
 
 interface Props {
   cartItems: Product[];
@@ -28,6 +28,7 @@ interface Props {
 
 const NavBar = ({ cartItems, setCartItems }: Props) => {
   const [isCartOpen, setCartOpen] = useState(false);
+  const [isMessageOpen, setMessageOpen] = useState(false);
 
   const {
     isOpen: isLoginOpen,
@@ -58,13 +59,8 @@ const NavBar = ({ cartItems, setCartItems }: Props) => {
   };
 
   const handleSignOut = async () => {
-    try {
-      await PostData({ endpoint: "logout", data: null });
-      localStorage.removeItem("token");
-      onClose();
-    } catch (error) {
-      console.log(error);
-    }
+    localStorage.removeItem("token");
+    onClose();
   };
 
   const token = localStorage.getItem("token");
@@ -92,7 +88,10 @@ const NavBar = ({ cartItems, setCartItems }: Props) => {
           </VStack>
         )}
         {token && (
-          <VStack _hover={{ cursor: "pointer" }}>
+          <VStack
+            _hover={{ cursor: "pointer" }}
+            onClick={() => setMessageOpen(true)}
+          >
             <InboxIcon messageCount={0} />
             <Link>Messages</Link>
           </VStack>
@@ -137,6 +136,10 @@ const NavBar = ({ cartItems, setCartItems }: Props) => {
         onClose={() => setCartOpen(false)}
         cartItems={cartItems}
         setCartItems={setCartItems}
+      />
+      <MessageModal
+        isOpen={isMessageOpen}
+        onClose={() => setMessageOpen(false)}
       />
     </HStack>
   );

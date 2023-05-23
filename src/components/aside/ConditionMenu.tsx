@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
-import { GetData } from "../../services/GetData";
+import { FetchData } from "../../services/FetchData"
 
 interface Props {
   onMinConditionSelect: (condition: string) => void;
   onMaxConditionSelect: (condition: string) => void;
 }
 
-const conditionsOrder = ["Defect", "Bad", "Good", "Very_Good", "New"]; // Conditions in the desired order
+const conditionOrder = ["DEFECT", "GOOD", "VERY GOOD", "NEW"]; // Conditions in the desired order
 
 const ConditionMenu = ({
   onMinConditionSelect,
@@ -20,13 +20,14 @@ const ConditionMenu = ({
   useEffect(() => {
     const fetchConditions = async () => {
       try {
-        const response = await GetData({
+        const response = await FetchData({
           endpoint: "product/condition",
+          method: 'GET',
           data: null,
         });
         // Sort the conditions based on the desired order
-        const sortedConditions = conditionsOrder.filter((condition) =>
-          response.includes(condition)
+        const sortedConditions = conditionOrder.filter((condition) =>
+          response.includes(condition.toUpperCase())
         );
         setConditions(sortedConditions);
       } catch (error) {
@@ -44,7 +45,7 @@ const ConditionMenu = ({
     // reset the max condition
     if (
       maxCondition &&
-      conditionsOrder.indexOf(maxCondition) < conditionsOrder.indexOf(condition)
+      conditionOrder.indexOf(maxCondition) < conditionOrder.indexOf(condition)
     ) {
       setMaxCondition(null);
     }
@@ -59,7 +60,7 @@ const ConditionMenu = ({
     // reset the min condition
     if (
       minCondition &&
-      conditionsOrder.indexOf(minCondition) > conditionsOrder.indexOf(condition)
+      conditionOrder.indexOf(minCondition) > conditionOrder.indexOf(condition)
     ) {
       setMinCondition(null);
     }
@@ -81,7 +82,7 @@ const ConditionMenu = ({
               onClick={() => handleMinConditionSelect(condition)}
               isDisabled={
                 maxCondition !== null &&
-                conditionsOrder.indexOf(maxCondition) < index
+                conditionOrder.indexOf(maxCondition) < index
               }
             >
               {condition}
@@ -101,7 +102,7 @@ const ConditionMenu = ({
               onClick={() => handleMaxConditionSelect(condition)}
               isDisabled={
                 minCondition !== null &&
-                conditionsOrder.indexOf(minCondition) > index
+                conditionOrder.indexOf(minCondition) > index
               }
             >
               {condition}

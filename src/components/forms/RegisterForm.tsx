@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { LoginService } from "../../services/LoginService";
+import { FetchData } from "../../services/FetchData";
 
 interface Props {
   onSwitch: () => void;
@@ -54,8 +55,9 @@ const RegisterForm = ({ onSwitch, onClose }: Props) => {
     }
 
     try {
-      const data = await LoginService({
+      const data = await FetchData({
         endpoint: "user",
+        method: 'POST',
         data: { firstName, lastName, username, email, dob, password },
       });
 
