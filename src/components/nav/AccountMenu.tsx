@@ -53,19 +53,16 @@ const AccountMenu = ({ isOpen, onClose, onSignOut }: Props) => {
             <BsClockHistory style={{ marginRight: "8px" }} />
             Order history
           </MenuItem>
-          <MenuItem>
-            <MdPending style={{ marginRight: "8px" }} />
-            Pending purchases
-          </MenuItem>
-          <MenuItem>
-            <MdOutlinePending style={{ marginRight: "8px" }} />
-            Pending sales
-          </MenuItem>
           <MenuItem onClick={handleProductSubscriptionsClick}>
             <AiOutlineNotification style={{ marginRight: "8px" }} />
             Subscribe to product type
           </MenuItem>
-          <MenuItem onClick={onSignOut}>
+          <MenuItem
+            onClick={() => {
+              onSignOut();
+              onClose();
+            }}
+          >
             <FiLogOut />
             <Text ml={2}>Sign Out</Text>
           </MenuItem>

@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  Select,
-  Box,
-} from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, Select, Box } from "@chakra-ui/react";
 import { FetchData } from "../../services/FetchData";
 
 interface Props {
@@ -49,7 +43,7 @@ const SellProductForm = ({
   useEffect(() => {
     FetchData({
       endpoint: "product/condition",
-      method: 'GET',
+      method: "GET",
       data: null,
     })
       .then((cond) => setConditions(cond))
@@ -57,7 +51,7 @@ const SellProductForm = ({
 
     FetchData({
       endpoint: "product/types",
-      method: 'GET',
+      method: "GET",
       data: null,
     })
       .then((type) => setProductTypes(type))
@@ -65,7 +59,7 @@ const SellProductForm = ({
 
     FetchData({
       endpoint: "product/color",
-      method: 'GET',
+      method: "GET",
       data: null,
     })
       .then((col) => setColors(col))

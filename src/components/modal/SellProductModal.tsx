@@ -48,20 +48,27 @@ const SellProductModal = ({ isOpen, onClose }: Props) => {
         priceNum >= 0
       ) {
         try {
+          let finalCondition = condition;
+          if (condition === "VERY GOOD") {
+            finalCondition = "VERY_GOOD";
+          }
           const data = {
             name,
             price: priceNum,
             yearOfProduction: yearOfProductionNum,
             imageUrl,
             productType,
-            condition,
+            condition: finalCondition,
             color,
           };
 
-          await FetchData({ 
-            endpoint: "product", 
-            method: 'POST',
-            data });
+          console.log(data);
+
+          await FetchData({
+            endpoint: "product",
+            method: "POST",
+            data,
+          });
 
           console.log("Product sold successfully!");
 

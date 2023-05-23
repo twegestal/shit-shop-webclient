@@ -29,6 +29,7 @@ const MessageModal = ({ isOpen, onClose }: Props) => {
           data: null,
         });
         setMessages(response);
+        console.log(response);
       } catch (error) {
         console.log(error);
       }

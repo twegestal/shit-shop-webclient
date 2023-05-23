@@ -29,6 +29,7 @@ interface Props {
 const NavBar = ({ cartItems, setCartItems }: Props) => {
   const [isCartOpen, setCartOpen] = useState(false);
   const [isMessageOpen, setMessageOpen] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const {
     isOpen: isLoginOpen,
@@ -58,14 +59,12 @@ const NavBar = ({ cartItems, setCartItems }: Props) => {
     onRegisterOpen();
   };
 
-  const handleSignOut = async () => {
-    localStorage.removeItem("token");
-    onClose();
+  const handleSignOut = () => {
+    localStorage.clear();
+    setTimeout(onClose, 0);
   };
 
   const token = localStorage.getItem("token");
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <HStack justifyContent="space-between" padding="10px">

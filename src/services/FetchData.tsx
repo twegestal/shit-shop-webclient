@@ -30,13 +30,13 @@ async function FetchData({ endpoint, method, data }: Props) {
   if (!response.ok) {
     throw new Error(`An error occurred: ${response.statusText}`);
   }
-
+  
   const contentType = response.headers.get("content-type");
   if (contentType && contentType.includes("application/json")) {
     return await response.json();
   }
 
-  return; //Server does not always respons with json, then return undefined
+  return;
 }
 
 export { FetchData };
