@@ -37,8 +37,8 @@ const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
 
     try {
       const response = await FetchData({
-        endpoint: "order/history",
-        method: 'POST',
+        endpoint: "order/approved",
+        method: "POST",
         data: payload,
       });
 
@@ -47,7 +47,7 @@ const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
           const productID = order.productID;
           const productResponse = await FetchData({
             endpoint: `order/${productID}`,
-            method: 'GET',
+            method: "GET",
             data: null,
           });
 

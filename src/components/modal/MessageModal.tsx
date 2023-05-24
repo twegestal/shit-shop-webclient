@@ -10,15 +10,20 @@ import {
 } from "@chakra-ui/react";
 import { FetchData } from "../../services/FetchData";
 import MessageCard from "../cards/MessageCard";
-import { Message } from "../cards/MessageCard";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
 
+export interface Message {
+  messageType: string;
+  productID: number;
+  text: string;
+}
+
 const MessageModal = ({ isOpen, onClose }: Props) => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -28,7 +33,7 @@ const MessageModal = ({ isOpen, onClose }: Props) => {
           method: "GET",
           data: null,
         });
-        setMessages(response);
+        setMessages(response.reverse());
         console.log(response);
       } catch (error) {
         console.log(error);
@@ -48,9 +53,9 @@ const MessageModal = ({ isOpen, onClose }: Props) => {
         <ModalCloseButton />
         <ModalBody>
           <VStack spacing={4}>
-            {/*{messages.map((message) => (
-              <MessageCard key={message.id} message={message} />
-            ))}*/}
+            {messages.map((message) => (
+              <MessageCard message={message} />
+            ))}
           </VStack>
         </ModalBody>
       </ModalContent>
