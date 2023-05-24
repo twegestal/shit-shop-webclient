@@ -1,4 +1,4 @@
-import { Box, Text, Button, VStack, Image, Flex } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { Message } from "../modal/MessageModal";
 
 interface Props {

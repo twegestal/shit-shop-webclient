@@ -1,4 +1,4 @@
-import { Box, HStack, Icon, Badge } from "@chakra-ui/react";
+import { Box, HStack, Icon } from "@chakra-ui/react";
 import { VscAccount } from "react-icons/vsc";
 
 const AccountIcon = () => {

@@ -22,7 +22,7 @@ interface Props {
   searchResults: Product[];
 }
 
-const ProductCardGrid = ({ cartItems, setCartItems, searchResults }: Props) => {
+const ProductCardGrid = ({ setCartItems, searchResults }: Props) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [first, setFirst] = useState<boolean>(true);

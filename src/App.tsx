@@ -1,10 +1,9 @@
-import { Box, Grid, GridItem, Show } from "@chakra-ui/react";
+import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/nav/NavBar";
 import SearchPanel from "./components/aside/SearchPanel";
 import ProductCardGrid, { Product } from "./components/main/ProductCardGrid";
 import { useState, useEffect } from "react";
 import PollingService from "./services/PollingService";
-import { FetchData } from "./services/FetchData";
 
 const App = () => {
   const [cartItems, setCartItems] = useState<Product[]>(() => {
