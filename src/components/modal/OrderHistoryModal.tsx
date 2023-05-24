@@ -16,6 +16,15 @@ import OrderHistoryCard from "../cards/OrderHistoryCard";
 import { Product } from "../main/ProductCardGrid";
 import { FetchData } from "../../services/FetchData";
 
+interface Order {
+  buyer: string;
+  orderID: string;
+  orderedDate: string;
+  processedDate: string;
+  product: Product;
+  status: string;
+}
+
 interface Props {
   isOpen: boolean;
   onClose: () => void;
@@ -24,7 +33,7 @@ interface Props {
 const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [products, setProducts] = useState<Product[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
 
   const handleSearch = async () => {
     const formattedStartDate = startDate ? formatDate(startDate) : "";
@@ -36,30 +45,36 @@ const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
     };
 
     try {
-      const response = await FetchData({
+      const ordersResponse = await FetchData({
         endpoint: "order/approved",
         method: "POST",
         data: payload,
       });
 
-      if (response && Array.isArray(response)) {
-        const productPromises = response.map(async (order) => {
-          const productID = order.productID;
-          const productResponse = await FetchData({
-            endpoint: `order/${productID}`,
-            method: "GET",
-            data: null,
-          });
-
-          // Handle the product response
-          console.log("Product Result:", productResponse);
-          return productResponse;
+      if (ordersResponse && Array.isArray(ordersResponse)) {
+        const productResponse = await FetchData({
+          endpoint: "product/search",
+          method: "POST",
+          data: null,
         });
 
-        // Wait for all product requests to complete
-        const products = await Promise.all(productPromises);
-        console.log("Products:", products);
-        setProducts(products);
+        if (productResponse && Array.isArray(productResponse)) {
+          const productsMap = new Map<number, Product>();
+          productResponse.forEach((product) => {
+            productsMap.set(product.productID, product);
+          });
+
+          const ordersWithProducts = ordersResponse.map((order) => {
+            const product = productsMap.get(order.productID);
+            return {
+              ...order,
+              product,
+            };
+          });
+
+          setOrders(ordersWithProducts);
+          console.log(orders);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -101,8 +116,8 @@ const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
             <Button colorScheme="telegram" onClick={handleSearch}>
               Search
             </Button>
-            {products.map((product) => (
-              <OrderHistoryCard key={product.productID} product={product} />
+            {orders.map((order) => (
+              <OrderHistoryCard key={order.orderID} product={order.product} />
             ))}
           </VStack>
         </ModalBody>

@@ -14,6 +14,7 @@ interface Props {
 }
 
 const OrderHistoryCard = ({ product }: Props) => {
+  console.log(product);
   return (
     <Card width="300px" borderRadius={10} overflow="hidden">
       <CardBody>
