@@ -7,7 +7,7 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
-import logo from "../../assets/logo.jpeg";
+import logo from "../../assets/shit-shop-logo.png";
 import ColorModeSwitch from "./ColorModeSwitch";
 import { GrAddCircle } from "react-icons/gr";
 import SellProductModal from "../modal/SellProductModal";
@@ -68,7 +68,7 @@ const NavBar = ({ cartItems, setCartItems }: Props) => {
 
   return (
     <HStack justifyContent="space-between" padding="10px">
-      <Image src={logo} boxSize="60px" />
+      <Image src={logo} blockSize={70} />
       <HStack spacing={10}>
         {token && (
           <Button

@@ -41,6 +41,7 @@ const PendingSalesModal = ({ isOpen, onClose }: Props) => {
           (order: Order) => order.status === "PENDING"
         );
         setOrders(filteredOrders);
+        console.log(filteredOrders);
       } catch (error) {
         console.log("Error fetching orders:", error);
       }

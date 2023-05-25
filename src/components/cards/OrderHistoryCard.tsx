@@ -18,13 +18,13 @@ const OrderHistoryCard = ({ product }: Props) => {
   return (
     <Card width="300px" borderRadius={10} overflow="hidden">
       <CardBody>
-        <Image
+        {/* <Image
           src={product.imageUrl}
           alt="Can't find image"
           borderRadius="lg"
           height="200px"
           objectFit="cover"
-        />
+  />*/}
         <Stack mt="6" spacing="3">
           <Heading size="md">{product.name}</Heading>
           <Text>Type: {product.productType}</Text>

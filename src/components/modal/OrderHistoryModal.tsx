@@ -15,14 +15,11 @@ import {
 import OrderHistoryCard from "../cards/OrderHistoryCard";
 import { Product } from "../main/ProductCardGrid";
 import { FetchData } from "../../services/FetchData";
+import { Order } from "./PendingSalesModal";
 
-interface Order {
-  buyer: string;
-  orderID: string;
-  orderedDate: string;
-  processedDate: string;
+interface OrderHistory {
+  order: Order;
   product: Product;
-  status: string;
 }
 
 interface Props {
@@ -33,7 +30,7 @@ interface Props {
 const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<OrderHistory[]>([]);
 
   const handleSearch = async () => {
     const formattedStartDate = startDate ? formatDate(startDate) : "";
@@ -49,33 +46,9 @@ const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
         endpoint: "order/approved",
         method: "POST",
         data: payload,
+      }).then((ordersResponse) => {
+        setOrders(ordersResponse);
       });
-
-      if (ordersResponse && Array.isArray(ordersResponse)) {
-        const productResponse = await FetchData({
-          endpoint: "product/search",
-          method: "POST",
-          data: null,
-        });
-
-        if (productResponse && Array.isArray(productResponse)) {
-          const productsMap = new Map<number, Product>();
-          productResponse.forEach((product) => {
-            productsMap.set(product.productID, product);
-          });
-
-          const ordersWithProducts = ordersResponse.map((order) => {
-            const product = productsMap.get(order.productID);
-            return {
-              ...order,
-              product,
-            };
-          });
-
-          setOrders(ordersWithProducts);
-          console.log(orders);
-        }
-      }
     } catch (error) {
       console.log(error);
     }
@@ -117,7 +90,10 @@ const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
               Search
             </Button>
             {orders.map((order) => (
-              <OrderHistoryCard key={order.orderID} product={order.product} />
+              <OrderHistoryCard
+                key={order.order.orderID}
+                product={order.product}
+              />
             ))}
           </VStack>
         </ModalBody>

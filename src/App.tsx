@@ -4,6 +4,7 @@ import SearchPanel from "./components/aside/SearchPanel";
 import ProductCardGrid, { Product } from "./components/main/ProductCardGrid";
 import { useState, useEffect } from "react";
 import PollingService from "./services/PollingService";
+import { FetchData } from "./services/FetchData";
 
 const App = () => {
   const [cartItems, setCartItems] = useState<Product[]>(() => {
@@ -18,14 +19,24 @@ const App = () => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const fetchNewMessages = () => {
-    /*const response = FetchData({
-      endpoint: "message/unsent",
-      method: "GET",
-      data: null,
-    });
-    console.log(response);*/
-  };
+  useEffect(() => {
+    setInterval(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        FetchData({
+          endpoint: "message/unsent",
+          method: "GET",
+          data: null,
+        })
+          .then((response) => {
+            console.log(response.hasUnsentMessages);
+          })
+          .catch((error) => {
+            console.log("Error fetching data:", error);
+          });
+      }
+    }, interval);
+  }, []);
 
   return (
     <Grid
@@ -49,7 +60,6 @@ const App = () => {
           searchResults={searchResults}
         />
       </GridItem>
-      <PollingService interval={interval} fetchNewMessages={fetchNewMessages} />
     </Grid>
   );
 };
