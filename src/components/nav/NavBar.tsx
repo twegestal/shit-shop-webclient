@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   HStack,
   Image,
@@ -20,6 +20,7 @@ import InboxIcon from "../icons/InboxIcon";
 import AccountMenu from "./AccountMenu";
 import AccountIcon from "../icons/AccountIcon";
 import MessageModal from "../modal/MessageModal";
+import { FetchData } from "../../services/FetchData";
 
 interface Props {
   cartItems: Product[];
@@ -30,6 +31,7 @@ const NavBar = ({ cartItems, setCartItems }: Props) => {
   const [isCartOpen, setCartOpen] = useState(false);
   const [isMessageOpen, setMessageOpen] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [hasUnsentMessages, setHasUnsentMessage] = useState(false);
 
   const {
     isOpen: isLoginOpen,
@@ -65,6 +67,33 @@ const NavBar = ({ cartItems, setCartItems }: Props) => {
   };
 
   const token = localStorage.getItem("token");
+  const interval = 1000;
+
+  useEffect(() => {
+    setInterval(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        FetchData({
+          endpoint: "message/unsent",
+          method: "GET",
+          data: null,
+        })
+          .then((response) => {
+            if (response.hasUnsentMessages === true) {
+              setHasUnsentMessage(true);
+            }
+          })
+          .catch((error) => {
+            console.log("Error fetching data:", error);
+          });
+      }
+    }, interval);
+  }, []);
+
+  const handleOpenMessages = () => {
+    setMessageOpen(true);
+    setHasUnsentMessage(false);
+  };
 
   return (
     <HStack justifyContent="space-between" padding="10px">
@@ -87,11 +116,8 @@ const NavBar = ({ cartItems, setCartItems }: Props) => {
           </VStack>
         )}
         {token && (
-          <VStack
-            _hover={{ cursor: "pointer" }}
-            onClick={() => setMessageOpen(true)}
-          >
-            <InboxIcon messageCount={0} />
+          <VStack _hover={{ cursor: "pointer" }} onClick={handleOpenMessages}>
+            <InboxIcon hasUnsentMessages={hasUnsentMessages} />
             <Link>Messages</Link>
           </VStack>
         )}

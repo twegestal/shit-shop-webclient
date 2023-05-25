@@ -42,12 +42,12 @@ const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
     };
 
     try {
-      const ordersResponse = await FetchData({
+      await FetchData({
         endpoint: "order/approved",
         method: "POST",
         data: payload,
-      }).then((ordersResponse) => {
-        setOrders(ordersResponse);
+      }).then((response) => {
+        setOrders(response);
       });
     } catch (error) {
       console.log(error);

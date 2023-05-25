@@ -19,7 +19,10 @@ interface Props {
 
 const ProductCard = ({ product, addToCart }: Props) => {
   const handleAddToCart = () => {
-    addToCart(product);
+    const token = localStorage.getItem("token");
+    if (token) {
+      addToCart(product);
+    }
   };
 
   return (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../cards/ProductCard";
-import { SimpleGrid } from "@chakra-ui/react";
+import { Card, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
 import ProductCardSkeleton from "./ProductCardSkeleton";
 import { FetchData } from "../../services/FetchData";
 import AlertMessage from "../error/AlertMessage";
@@ -46,6 +46,7 @@ const ProductCardGrid = ({ setCartItems, searchResults }: Props) => {
   useEffect(() => {
     if (!first && searchResults.length === 0) {
       setShowAlert(true);
+      setProducts([]);
     } else {
       setShowAlert(false);
       setProducts(searchResults);
@@ -78,19 +79,26 @@ const ProductCardGrid = ({ setCartItems, searchResults }: Props) => {
           onClose={() => setShowAlert(false)}
         />
       )}
-      <SimpleGrid columns={3} padding="10px" spacing={10}>
-        {products.length === 0
-          ? Array.from({ length: 9 }).map((_, index) => (
-              <ProductCardSkeleton key={index} />
-            ))
-          : products.map((product) => (
-              <ProductCard
-                key={product.productID}
-                product={product}
-                addToCart={addToCart}
-              />
-            ))}
-      </SimpleGrid>
+
+      {products.length > 0 && (
+        <SimpleGrid columns={3} padding="10px" spacing={10}>
+          {products.map((product) => (
+            <ProductCard
+              key={product.productID}
+              product={product}
+              addToCart={addToCart}
+            />
+          ))}
+        </SimpleGrid>
+      )}
+
+      {products.length === 0 && (
+        <SimpleGrid columns={3} padding="10px" spacing={10}>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <ProductCardSkeleton key={index} />
+          ))}
+        </SimpleGrid>
+      )}
     </>
   );
 };

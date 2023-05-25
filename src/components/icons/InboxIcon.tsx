@@ -1,26 +1,27 @@
-import { HStack, Badge, Box, Icon } from "@chakra-ui/react";
+import { HStack, Badge, Box, Icon, Text } from "@chakra-ui/react";
 import { MdOutlineNotificationsNone } from "react-icons/md";
 
 interface Props {
-  messageCount: number;
+  hasUnsentMessages: boolean;
 }
 
-const InboxIcon = ({ messageCount }: Props) => {
+const InboxIcon = ({ hasUnsentMessages }: Props) => {
   return (
     <HStack align="flex-start">
       <Box position="relative">
         <Icon as={MdOutlineNotificationsNone} boxSize={6} marginBottom={1} />
-        {messageCount > 0 && (
+        {hasUnsentMessages && (
           <Badge
-            colorScheme="green"
+            colorScheme="red"
             borderRadius="full"
             size="sm"
             position="absolute"
             top="-2px"
             right="-2px"
-            fontSize="xs"
           >
-            {messageCount}
+            <Text fontSize="xs" fontWeight="bold" color="white">
+              !
+            </Text>
           </Badge>
         )}
       </Box>
