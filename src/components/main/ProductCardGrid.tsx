@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../cards/ProductCard";
-import { Card, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
+import { SimpleGrid } from "@chakra-ui/react";
 import ProductCardSkeleton from "./ProductCardSkeleton";
 import { FetchData } from "../../services/FetchData";
 import AlertMessage from "../error/AlertMessage";
