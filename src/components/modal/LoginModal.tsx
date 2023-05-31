@@ -52,7 +52,7 @@ const LoginModal = ({ isOpen, onClose, onSwitch }: Props) => {
         <ModalBody pb={6}>
           <FormControl>
             <FormLabel>Username</FormLabel>
-            <Input onChange={(e) => setUsername(e.target.value)} />
+            <Input autoComplete="off" onChange={(e) => setUsername(e.target.value)} />
           </FormControl>
 
           <FormControl mt={4}>

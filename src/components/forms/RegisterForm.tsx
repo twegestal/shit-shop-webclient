@@ -78,6 +78,7 @@ const RegisterForm = ({ onSwitch, onClose }: Props) => {
         <Input
           type="text"
           value={firstName}
+          autoComplete="off"
           onChange={(e) => setFirstName(e.target.value)}
         />
         <FormErrorMessage>{formErrors.firstName}</FormErrorMessage>
@@ -87,6 +88,7 @@ const RegisterForm = ({ onSwitch, onClose }: Props) => {
         <Input
           type="text"
           value={lastName}
+          autoComplete="off"
           onChange={(e) => setLastName(e.target.value)}
         />
         <FormErrorMessage>{formErrors.lastName}</FormErrorMessage>
@@ -96,6 +98,7 @@ const RegisterForm = ({ onSwitch, onClose }: Props) => {
         <Input
           type="text"
           value={username}
+          autoComplete="off"
           onChange={(e) => setUsername(e.target.value)}
         />
         <FormErrorMessage>{formErrors.username}</FormErrorMessage>
@@ -105,6 +108,7 @@ const RegisterForm = ({ onSwitch, onClose }: Props) => {
         <Input
           type="email"
           value={email}
+          autoComplete="off"
           onChange={(e) => setEmail(e.target.value)}
         />
         <FormErrorMessage>{formErrors.email}</FormErrorMessage>
@@ -114,6 +118,7 @@ const RegisterForm = ({ onSwitch, onClose }: Props) => {
         <Input
           type="date"
           value={dob}
+          autoComplete="off"
           onChange={(e) => setDob(e.target.value)}
         />
         <FormErrorMessage>{formErrors.dob}</FormErrorMessage>
@@ -123,6 +128,7 @@ const RegisterForm = ({ onSwitch, onClose }: Props) => {
         <Input
           type="password"
           value={password}
+          autoComplete="off"
           onChange={(e) => setPassword(e.target.value)}
         />
         <FormErrorMessage>{formErrors.password}</FormErrorMessage>

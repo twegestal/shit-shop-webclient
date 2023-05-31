@@ -92,7 +92,11 @@ const SellProductForm = ({
     <Box as="form">
       <FormControl>
         <FormLabel>Name</FormLabel>
-        <Input value={name} onChange={(e) => setName(e.target.value)} />
+        <Input
+          autoComplete="off"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
       </FormControl>
 
       <FormControl>
@@ -119,12 +123,17 @@ const SellProductForm = ({
 
       <FormControl>
         <FormLabel>Price</FormLabel>
-        <Input value={price} onChange={(e) => setPrice(e.target.value)} />
+        <Input
+          autoComplete="off"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
       </FormControl>
 
       <FormControl>
         <FormLabel>Year of Production</FormLabel>
         <Input
+          autoComplete="off"
           value={yearOfProduction}
           onChange={(e) => setYearOfProduction(e.target.value)}
         />
@@ -164,7 +173,11 @@ const SellProductForm = ({
 
       <FormControl>
         <FormLabel>Image URL</FormLabel>
-        <Input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} />
+        <Input
+          autoComplete="off"
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
+        />
       </FormControl>
     </Box>
   );
