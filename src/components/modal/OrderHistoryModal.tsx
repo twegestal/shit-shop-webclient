@@ -16,6 +16,7 @@ import OrderHistoryCard from "../cards/OrderHistoryCard";
 import { Product } from "../main/ProductCardGrid";
 import { FetchData } from "../../services/FetchData";
 import { Order } from "./PendingSalesModal";
+import AlertMessage from "../error/AlertMessage";
 
 interface OrderHistory {
   order: Order;
@@ -31,6 +32,7 @@ const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [orders, setOrders] = useState<OrderHistory[]>([]);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
   const handleSearch = async () => {
     const formattedStartDate = startDate ? formatDate(startDate) : "";
@@ -48,6 +50,7 @@ const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
         data: payload,
       }).then((response) => {
         setOrders(response);
+        setShowAlert(response.length === 0);
       });
     } catch (error) {
       console.log(error);
@@ -62,8 +65,12 @@ const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
     return `${year}-${month}-${day}`;
   };
 
+  const handleAlertClose = () => {
+    setShowAlert(false);
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Order History</ModalHeader>
@@ -95,6 +102,14 @@ const OrderHistoryModal = ({ isOpen, onClose }: Props) => {
                 product={order.product}
               />
             ))}
+            {showAlert && (
+              <AlertMessage
+                status="error"
+                title="Nothing to show"
+                description="You have no order history to show for the selected dates"
+                onClose={handleAlertClose}
+              />
+            )}
           </VStack>
         </ModalBody>
       </ModalContent>

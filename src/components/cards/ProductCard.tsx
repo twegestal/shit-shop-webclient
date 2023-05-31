@@ -33,6 +33,7 @@ const ProductCard = ({ product, addToCart }: Props) => {
           alt="Can't find image"
           borderRadius="lg"
           height="200px"
+          width="250px"
           objectFit="cover"
         />
         <Stack mt="6" spacing="3">

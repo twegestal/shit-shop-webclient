@@ -27,7 +27,6 @@ const SellProductModal = ({ isOpen, onClose }: Props) => {
   const [color, setColor] = useState("");
 
   const handleSellProduct = async () => {
-    // Check if all form fields are filled
     if (
       name &&
       price &&
@@ -37,7 +36,6 @@ const SellProductModal = ({ isOpen, onClose }: Props) => {
       condition &&
       color
     ) {
-      // Validate yearOfProduction and price
       const currentYear = new Date().getFullYear();
       const yearOfProductionNum = parseInt(yearOfProduction, 10);
       const priceNum = parseFloat(price);
@@ -85,11 +83,11 @@ const SellProductModal = ({ isOpen, onClose }: Props) => {
           console.log("An error occurred while selling the product:", error);
         }
       } else {
-        // we show the alert component here instead
+        //TODO we show the alert component here instead
         console.log("Invalid year or price");
       }
     } else {
-      // we show the alert component here instead
+      //TODO we show the alert component here instead
       console.log("Please fill all form fields");
     }
   };

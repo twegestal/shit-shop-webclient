@@ -48,7 +48,7 @@ const CartModal = ({ isOpen, onClose, cartItems, setCartItems }: Props) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Cart</ModalHeader>
